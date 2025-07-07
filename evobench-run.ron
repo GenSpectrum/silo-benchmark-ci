@@ -46,7 +46,7 @@ RunConfig(
         // Smaller: less disk space use for build dirs, but less
         // chance to re-use a build with the same commit id without
         // having to rebuild
-        capacity: 6,
+        capacity: 8,
     ),
 
     remote_repository: (
