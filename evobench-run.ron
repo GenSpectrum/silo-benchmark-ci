@@ -56,7 +56,7 @@ RunConfig(
         // For the `poll` subcommand:
         remote_branch_names: [
             "main",
-	    "refactor-datebetween-evaluate",
+	    "cj_evobench_fix1",
         ]
     ),
 
