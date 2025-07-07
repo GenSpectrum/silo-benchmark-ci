@@ -18,8 +18,8 @@ RunConfig(
             // all jobs are finished, it is run with `start`.
             ("night", LocalNaiveTimeWindow(
                 stop_start: Some([
-                    "echo",
-                    "running in the night:",
+                    "sudo",
+		    "/opt/silo-benchmark-ci/root/other-activity"
                 ]),
                 repeatedly: true,
                 move_when_time_window_ends: true,
