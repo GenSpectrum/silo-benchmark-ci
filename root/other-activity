@@ -1,0 +1,37 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+usage() {
+    echo "$0 start|stop"
+    echo "  Running with stop shuts down activity that hinders proper"
+    echo "  benchmarking. Running with start brings that activity back."
+    exit 1
+}
+
+if [ $# -ne 1 ]; then
+    usage
+fi
+
+case "$1" in
+    stop)
+        echo "stopping services"
+        (
+            set -meuo pipefail
+            set -x
+            cd /opt/lapis
+            docker compose down
+        )
+        ;;
+    start)
+        echo "starting services back up"
+        (
+            set -meuo pipefail
+            set -x
+            cd /opt/lapis
+            docker compose up -d
+        )
+        ;;
+    *)
+        usage
+esac
