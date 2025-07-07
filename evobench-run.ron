@@ -16,22 +16,6 @@ RunConfig(
             // window is entered, the `stop_start` command is run with
             // an additional `stop` argument, when the window ends or
             // all jobs are finished, it is run with `start`.
-            ("day", LocalNaiveTimeWindow(
-                stop_start: Some([
-                    "echo",
-                    "running during the day:",
-                ]),
-                // When `repeatedly` is false, the job is run only
-                // once then moved to the next queue. When `true`, the
-                // job is run until its `count` reaches 0 or the time
-                // window runs out.
-                repeatedly: false,
-                // If true, unfinished jobs in this queue are moved to
-                // the next queue when the time window ends.
-                move_when_time_window_ends: true,
-                from: "17:00:00",
-                to: "18:00:00",
-            )),
             ("night", LocalNaiveTimeWindow(
                 stop_start: Some([
                     "echo",
@@ -39,8 +23,8 @@ RunConfig(
                 ]),
                 repeatedly: true,
                 move_when_time_window_ends: true,
-                from: "2:00",
-                to: "7:00",
+                from: "23:00",
+                to: "5:30",
             )),
             // `GraveYard` queues do not run their jobs, meaning jobs
             // that are moved here stay forever; this is meant as a
@@ -67,14 +51,13 @@ RunConfig(
 
     remote_repository: (
         // For server use:
-        // url: "https://github.com/GenSpectrum/LAPIS-SILO/",
-
-        // For benchmarking local developments, give the path to your local working directory:
-        url: "~/LAPIS-SILO",
+        url: "https://github.com/GenSpectrum/LAPIS-SILO/",
 
         // For the `poll` subcommand:
         remote_branch_names: [
-            "main"
+            "main",
+	    "add_mrca",
+	    "refactor-datebetween-evaluate",
         ]
     ),
 
