@@ -95,6 +95,7 @@ RunConfig(
         // `erroneous_jobs_queue` (or dropped if that is `None`);
         // default: 3
         error_budget: Some(1)
+	// XX^ change to 3 once stuff is working
     ),
 
     // What command to run on the target project to execute a
