@@ -56,7 +56,6 @@ RunConfig(
         // For the `poll` subcommand:
         remote_branch_names: [
             "main",
-	    "cj_evobench_fix1",
         ]
     ),
 
