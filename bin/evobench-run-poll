@@ -1,0 +1,11 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+cd
+
+{
+    sleep 42.41
+    evobench-run poll
+} 2>&1 | bin/log-timestamp -H >> log/evobench-poll.log
+
