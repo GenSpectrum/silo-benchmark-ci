@@ -1,0 +1,10 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+mypath=$(readlink -f "$0")
+mydir=$(dirname "$mypath")
+docsdir=$(dirname "$mydir")
+
+cat "$docsdir"/help_text.md | less
+

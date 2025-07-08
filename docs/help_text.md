@@ -52,3 +52,4 @@
   `evobench-run` tool visits. `~/etc/` is a Git repository, commit
   your changes!
 
+(Press `q` to exit the viewer.)
