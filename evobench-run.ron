@@ -24,7 +24,7 @@ RunConfig(
                 repeatedly: true,
                 move_when_time_window_ends: true,
                 from: "23:00",
-                to: "5:30",
+                to: "9:00",
             )),
             // `GraveYard` queues do not run their jobs, meaning jobs
             // that are moved here stay forever; this is meant as a
