@@ -6,5 +6,5 @@ mypath=$(readlink -f "$0")
 mydir=$(dirname "$mypath")
 docsdir=$(dirname "$mydir")
 
-cat "$docsdir"/help_text.md | less
+man "$docsdir"/help_text.1
 
