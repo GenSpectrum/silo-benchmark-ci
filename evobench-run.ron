@@ -23,7 +23,7 @@ RunConfig(
                 ]),
                 repeatedly: true,
                 move_when_time_window_ends: true,
-                from: "23:00",
+                from: "01:00",
                 to: "9:00",
             )),
             // `GraveYard` queues do not run their jobs, meaning jobs
