@@ -32,7 +32,7 @@
 - The results are written to `~/silo-benchmark-outputs`
 
 - `~/www_data` (currently a symlink to `~/silo-benchmark-outputs`) is
-  what's shown on https://https://silo-benchmarks.genspectrum.org/
+  what's shown on <https://silo-benchmarks.genspectrum.org/>
 
 - The input datasets are in `~/silo-benchmark-datasets/`. Please never
   modify existing datasets, it would invalidate existing results. Add
