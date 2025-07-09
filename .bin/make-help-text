@@ -1,0 +1,14 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+title=$(cat docs/help_text.md | head -n 1 | sed 's/^# //')
+
+{
+    echo "---"
+    echo 'title: "'"$title"'"'
+    echo "---"
+    cat docs/help_text.md|tail -n +2
+} > docs/help_text.tmp.md
+
+pandoc --standalone --to man docs/help_text.tmp.md -o docs/help_text.1
