@@ -52,4 +52,11 @@
   `evobench-run` tool visits. `~/etc/` is a Git repository, commit
   your changes!
 
+- When you see an executable like `silo_02daf40559` running in
+  top/ps/whatever, then you know that it was started by the
+  benchmarks--the SILO benchmark runner renames the binaries to make
+  sure rebuilds happen precisely when re-using a working directory for
+  a commit it hasn't seen, and as a side effect this allows
+  distinguishing those programs from normal `silo` instances.
+
 (Press `q` to exit the viewer.)
