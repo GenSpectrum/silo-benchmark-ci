@@ -5,10 +5,24 @@ RunConfig(
     queues: (
         // run_queues_basedir: Some("other/path/than/home/.evobench-run/queues/"),
 
-        // List of queues each job goes through in order--subdirectory
-        // name and queue configuration
+        // List of queues each job goes through in order--each entry
+        // being a tuple of subdirectory name (under
+        // `~/.evobench-run/queues/` by default) and scheduling
+        // configuration. Jobs are inserted (via `evobench-run
+        // insert`, `evobench-run insert-local`, `evobench-run poll`)
+        // into the first queue configured here, then may be moved to
+        // the next, depending on the scheduling configuration.
         pipeline: [
+            // Scheduling type `Immediately` means that jobs are
+            // picked up ASAP, i.e. immediately after a queue that
+            // started processing is finished (perhaps, once
+            // implemented, immediately after the current job is
+            // finished). This scheduling type does not have
+            // parameters; jobs are run exactly once, then moved to
+            // the next queue.
             ("immediately1", Immediately),
+            // Adding a second `Immediately` queue, to have jobs
+            // executed twice, before they enter the "night" queue.
             ("immediately2", Immediately),
             // "local naive time" is a time without date that matches
             // every day, in the local time zone. Jobs in such a queue
@@ -26,17 +40,41 @@ RunConfig(
                 from: "23:00",
                 to: "5:30",
             )),
+            // Adding a second queue with the same `stop_start` action
+            // (it will not be re-executed, instead the status is
+            // carried over), a little later so that the above queue
+            // is started (and finished) first, but otherwise using
+            // the same time window; it catches the jobs that aren't
+            // finished in the "night" queue above, and then on days
+            // when the "night" queue finishes early, this queue of
+            // stragglers will be run; since it is configured to *not*
+            // `move_when_time_window_ends`, jobs remain in here
+            // forever, until done.
+            ("night-stragglers", LocalNaiveTimeWindow(
+                stop_start: Some([
+                    "sudo",
+		    "/opt/silo-benchmark-ci/root/other-activity"
+                ]),
+                repeatedly: true,
+                move_when_time_window_ends: false,
+                from: "23:10",
+                to: "5:30",
+            )),
             // `GraveYard` queues do not run their jobs, meaning jobs
             // that are moved here stay forever; this is meant as a
-            // debugging/verification tool (omitting this last queue
-            // would get them deleted instead)
-            ("grave_yard", GraveYard),
+            // debugging/verification tool for spill overs (omitting
+            // this last queue would get them deleted instead; but
+            // then with "night-stragglers" never actually moving its
+            // jobs out, this is never going to be used; leaving it
+            // here in case future config changes could make use of
+            // it)
+            ("left-over", GraveYard),
         ],
 
         // Where jobs go when they run out of error_budget (`None`
         // would get them deleted instead)
         erroneous_jobs_queue: Some(
-            ("erroneous_jobs", GraveYard)
+            ("erroneous-jobs", GraveYard)
         ),
     ),
 
