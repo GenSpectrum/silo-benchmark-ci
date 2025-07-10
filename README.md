@@ -9,7 +9,7 @@ Using a dedicated server has the advantage that
  * the full datasets can be used (perhaps needing lots of RAM)
  * no interference from other workloads, hence better measurements
 
-`evobench-run` has a feature (see `stop_start` in
+`evobench-run` has a feature (see `stop_start` attribute in
 [etc/evobench-run.ron](etc/evobench-run.ron)) to temporarily shut down
 other workloads while running benchmarks, thus the same server can be
 used for other things at other times.
