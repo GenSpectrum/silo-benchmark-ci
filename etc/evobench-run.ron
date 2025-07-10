@@ -125,14 +125,15 @@ RunConfig(
 
     // Each job receives a copy of these settings
     benchmarking_job_settings: BenchmarkingJobSettings(
-        // How many times to run the same benchmarking job (higher:
-        // better statistics, at higher cost); default: 5
+        // How many times to run the same benchmarking job across all
+        // queues (higher: better statistics, at higher computing
+        // cost); default: 5
         count: Some(5),
         // How many times the job can fail before it is moved to the
-        // `erroneous_jobs_queue` (or dropped if that is `None`);
-        // default: 3
-        error_budget: Some(1)
-	// XX^ change to 3 once stuff is working
+        // `erroneous_jobs_queue` (or dropped if that is `None`); you
+        // want to use 1 for interactive use, 2-3 for CI use. default:
+        // 3
+        error_budget: Some(2)
     ),
 
     // What command to run on the target project to execute a
