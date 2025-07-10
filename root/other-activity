@@ -30,8 +30,8 @@ case "$1" in
             set -meuo pipefail
             set -x
             cd /opt/lapis
-            rm -f container-restart-hack.disable
             docker compose up -d
+            rm -f container-restart-hack.disable
         )
         ;;
     *)
