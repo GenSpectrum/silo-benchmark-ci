@@ -16,6 +16,7 @@
 .\}
 .TH "SILO benchmarking CI system help" "" "" "" ""
 .hy
+.SH Programs and logs
 .PP
 Everything goes through the \f[V]evobench-run\f[R] tool.
 Run it without arguments (or \f[V]--help\f[R], \f[V]-h\f[R] or
@@ -27,10 +28,23 @@ You will primarily use the \f[V]list\f[R], \f[V]list-all\f[R], and
 The crontab runs \f[V]\[ti]/bin/evobench-run-poll\f[R], with a log in
 \f[V]\[ti]/log/evobench-poll.log\f[R]
 .IP \[bu] 2
-\f[V]evobench-run -v run daemon\f[R] is currently run in a screen
-session, will be changed to a proper daemon.
+The daemon that runs the jobs, running as
+\f[V]evobench-run -v run     daemon\f[R], currently in a screen session,
+logs to \f[V]\[ti]/log/daemon.log\f[R].
 (This command must be started after first running
 \f[V]source \[ti]/venv/bin/activate\f[R], or SILO won\[cq]t build!)
+.PP
+When you see a program with a name like \f[V]silo_02daf40559\f[R]
+running in top/ps/whatever, then you know that it was started by the
+benchmarks\[em]\[em]the SILO benchmark runner renames the binaries to
+make sure rebuilds happen precisely when re-using a working directory
+for a commit it hasn\[cq]t seen, and as a side effect this allows
+distinguishing those programs from normal \f[V]silo\f[R] instances.
+.PP
+The \f[V]evobench-run\f[R] tool is built from the
+\f[V]\[ti]/evobench/evobench-evaluator\f[R] directory, in case you need
+to install a newer version.
+.SH Queues and working directories
 .PP
 Use \f[V]evobench-run list\f[R] or \f[V]evobench-run list -v\f[R] to see
 the current state of the processing queues.
@@ -52,6 +66,7 @@ N first.
 Renaming back to N is also giving it back to the pool, so it can be
 re-used for benchmarking (but it will currently only be picked up when
 the daemon is restarted (potential TODO for improvements)).
+.SH Results and datasets
 .PP
 The results are written to \f[V]\[ti]/silo-benchmark-outputs\f[R]
 .PP
@@ -67,20 +82,11 @@ different dataset.
 You can refer to it by name via the \f[V]BENCHMARK_DATASET_NAME\f[R]
 custom parameter in the \f[V]custom_parameters_set\f[R] field in the
 config file, see below for where to find that.
-.PP
-The \f[V]evobench-run\f[R] tool is built from the
-\f[V]\[ti]/evobench/evobench-evaluator\f[R] directory, in case you need
-to install a newer version.
+.SH Configuration
 .PP
 If you want to read or need to edit the configuration, you find it in
-\f[V]\[ti]/etc/\f[R] \[em] the file \f[V]evobench-run.ron\f[R] is
-referenced by symlink from \f[V]\[ti]/.evobench-run.ron\f[R], which is
-the location that the \f[V]evobench-run\f[R] tool visits.
+\f[V]\[ti]/etc/\f[R].
+The file \f[V]evobench-run.ron\f[R] there is referenced by symlink from
+\f[V]\[ti]/.evobench-run.ron\f[R], which is the location read by
+\f[V]evobench-run\f[R].
 \f[V]\[ti]/etc/\f[R] is a Git repository, commit your changes!
-.PP
-When you see an executable like \f[V]silo_02daf40559\f[R] running in
-top/ps/whatever, then you know that it was started by the
-benchmarks\[en]the SILO benchmark runner renames the binaries to make
-sure rebuilds happen precisely when re-using a working directory for a
-commit it hasn\[cq]t seen, and as a side effect this allows
-distinguishing those programs from normal \f[V]silo\f[R] instances.
