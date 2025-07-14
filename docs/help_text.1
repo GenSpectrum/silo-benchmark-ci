@@ -88,8 +88,12 @@ config file, see below for where to find that.
 .SH Configuration
 .PP
 If you want to read or need to edit the configuration, you find it in
-\f[V]\[ti]/etc/\f[R].
-The file \f[V]evobench-run.ron\f[R] there is referenced by symlink from
-\f[V]\[ti]/.evobench-run.ron\f[R], which is the location read by
-\f[V]evobench-run\f[R].
-\f[V]\[ti]/etc/\f[R] is a Git repository, commit your changes!
+\f[V]\[ti]/etc/\f[R], which is a symlink to
+\f[V]/opt/silo-benchmark-ci/etc\f[R].
+The file \f[V]evobench-run.ron\f[R] in this directory is referenced by
+symlink from \f[V]\[ti]/.evobench-run.ron\f[R], which is the location
+read by \f[V]evobench-run\f[R].
+This location is owned by root, so use sudo from your own account.
+Since this is a Git repository, please commit your changes\[em]\[em]they
+should end up on <https://github.com/GenSpectrum/silo-benchmark-ci/>
+eventually.
