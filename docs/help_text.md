@@ -30,8 +30,10 @@ install a newer version.
 # Queues and working directories
 
 Use `evobench-run list` or `evobench-run list -v` to see the current
-state of the processing queues. If you need to investigate some
-failures:
+state of the processing queues. You could run `watch evobench-run
+list` to keep seeing queue changes.
+
+If you need to investigate some failures:
 
       cd ~/.evobench-run/working_directory_pool/
       ls -lrt
