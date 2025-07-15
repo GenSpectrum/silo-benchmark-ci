@@ -14,7 +14,8 @@ arguments (or `--help`, `-h` or `help`) to get a help text.
   - The daemon that runs the jobs, running as `evobench-run -v run
     daemon`, currently in a screen session, logs to
     `~/log/daemon.log`. (This command must be started after first
-    running `source ~/venv/bin/activate`, or SILO won't build!)
+    running `source ~/venv/bin/activate`, or SILO won't build!)  `tail
+    -f ~/log/daemon.log` will show you interactively what's going on.
 
 When you see a program with a name like `silo_02daf40559` running in
 top/ps/whatever, then you know that it was started by the
