@@ -12,3 +12,5 @@ title=$(cat docs/help_text.md | head -n 1 | sed 's/^# //')
 } > docs/help_text.tmp.md
 
 pandoc --standalone --to man docs/help_text.tmp.md -o docs/help_text.1
+
+rm -f docs/help_text.tmp.md
