@@ -44,14 +44,37 @@ distinguishing those programs from normal \f[V]silo\f[R] instances.
 The \f[V]evobench-run\f[R] tool is built from the
 \f[V]\[ti]/evobench/evobench-evaluator\f[R] directory, in case you need
 to install a newer version.
-.SH Queues and working directories
+.SH Queues
 .PP
 Use \f[V]evobench-run list\f[R] or \f[V]evobench-run list -v\f[R] to see
 the current state of the processing queues.
 You could run \f[V]watch evobench-run list\f[R] to keep seeing queue
 changes.
 .PP
-If you need to investigate some failures:
+The queues consist of directories containing files, one job per file,
+under \f[V]\[ti]/.evobench-run/queues\f[R].
+If you\[cq]re careful, you can move jobs between queues by just moving
+the files (using the \f[V]mv\f[R] command or similar), except you
+shouldn\[cq]t move the file if it is currently locked (which means,
+being executed).
+Use \f[V]evobench-run list -v\f[R] to both see the file names for each
+job, and whether it is locked.
+(A subcommand to do such moves safely could be added if desired.)
+.SH Working directories
+.PP
+evobench-run maintains a pool of working directories (clones of the
+target project repository) under
+\f[V]\[ti]/.evobench-run/working_directory_pool/\f[R] that it uses to
+avoid the need to rebuild when a job for the same commit id is run
+again.
+When there is a failure (be it build or run time) in a particular
+working directory, it is set aside to allow investigation.
+Also saved in this directory are log files of the outputs (stderr lines
+as \[lq]E\[rq] and stdout lines as \[lq]O\[rq]) of the process under
+benchmarking.
+.PP
+So if there was a failure (a job ended up in the
+\[lq]erroneous-jobs\[rq] queue) that you want to investigate:
 .IP
 .nf
 \f[C]

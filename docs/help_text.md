@@ -27,13 +27,33 @@ The `evobench-run` tool is built from the
 `~/evobench/evobench-evaluator` directory, in case you need to
 install a newer version.
 
-# Queues and working directories
+# Queues
 
 Use `evobench-run list` or `evobench-run list -v` to see the current
 state of the processing queues. You could run `watch evobench-run
 list` to keep seeing queue changes.
 
-If you need to investigate some failures:
+The queues consist of directories containing files, one job per file,
+under `~/.evobench-run/queues`.  If you're careful, you can move jobs
+between queues by just moving the files (using the `mv` command or
+similar), except you shouldn't move the file if it is currently locked
+(which means, being executed). Use `evobench-run list -v` to both see
+the file names for each job, and whether it is locked. (A subcommand
+to do such moves safely could be added if desired.)
+
+# Working directories
+
+evobench-run maintains a pool of working directories (clones of the
+target project repository) under
+`~/.evobench-run/working_directory_pool/` that it uses to avoid the
+need to rebuild when a job for the same commit id is run again. When
+there is a failure (be it build or run time) in a particular working
+directory, it is set aside to allow investigation. Also saved in this
+directory are log files of the outputs (stderr lines as "E" and stdout
+lines as "O") of the process under benchmarking.
+
+So if there was a failure (a job ended up in the "erroneous-jobs"
+queue) that you want to investigate:
 
       cd ~/.evobench-run/working_directory_pool/
       ls -lrt
