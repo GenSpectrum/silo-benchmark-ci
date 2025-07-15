@@ -21,9 +21,13 @@ RunConfig(
             // parameters; jobs are run exactly once, then moved to
             // the next queue.
             ("immediately1", Immediately),
-            // Adding a second `Immediately` queue, to have jobs
-            // executed twice, before they enter the "night" queue.
+            // Adding another/more `Immediately` queue(s), to have
+            // jobs executed as many times (once per each queue)
+            // before they enter the "night" queue.
             ("immediately2", Immediately),
+            ("immediately3", Immediately),
+            ("immediately4", Immediately),
+            ("immediately5", Immediately),
             // "local naive time" is a time without date that matches
             // every day, in the local time zone. Jobs in such a queue
             // are run in the given time window, only. When the time
@@ -126,8 +130,10 @@ RunConfig(
     benchmarking_job_settings: BenchmarkingJobSettings(
         // How many times to run the same benchmarking job across all
         // queues (higher: better statistics, at higher computing
-        // cost); default: 5
-        count: Some(5),
+        // cost, although, thanks to the re-use of working
+        // directories, subsequent runs can be cheap compared to the
+        // first one); default: 5
+        count: Some(10),
         // How many times the job can fail before it is moved to the
         // `erroneous_jobs_queue` (or dropped if that is `None`); you
         // want to use 1 for interactive use, 2-3 for CI use. default:
