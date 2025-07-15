@@ -17,17 +17,22 @@ RunConfig(
             // picked up ASAP, i.e. immediately after a queue that
             // started processing is finished (perhaps, once
             // implemented, immediately after the current job is
-            // finished). This scheduling type does not have
-            // parameters; jobs are run exactly once, then moved to
-            // the next queue.
-            ("immediately1", Immediately),
+            // finished). Jobs of this scheduling type are run exactly
+            // once, then moved to the next queue. The `situation`
+            // parameter is used to group results into "summary-.."
+            // files; we have two here, those "during the day", but
+            // really just immediate, without disabling
+            // other-activity. And then further down, the "night" one
+            // with other-activity disabled. It's those two situations
+            // we want to compare statistically.
+            ("immediately1", Immediately(situation: "immediate")),
             // Adding another/more `Immediately` queue(s), to have
             // jobs executed as many times (once per each queue)
             // before they enter the "night" queue.
-            ("immediately2", Immediately),
-            ("immediately3", Immediately),
-            ("immediately4", Immediately),
-            ("immediately5", Immediately),
+            ("immediately2", Immediately(situation: "immediate")),
+            ("immediately3", Immediately(situation: "immediate")),
+            ("immediately4", Immediately(situation: "immediate")),
+            ("immediately5", Immediately(situation: "immediate")),
             // "local naive time" is a time without date that matches
             // every day, in the local time zone. Jobs in such a queue
             // are run in the given time window, only. When the time
@@ -35,6 +40,7 @@ RunConfig(
             // an additional `stop` argument, when the window ends or
             // all jobs are finished, it is run with `start`.
             ("night", LocalNaiveTimeWindow(
+                situation: "night",
                 stop_start: Some([
                     "sudo",
 		    "/opt/silo-benchmark-ci/root/other-activity"
@@ -55,6 +61,7 @@ RunConfig(
             // `move_when_time_window_ends`, jobs remain in here
             // forever, until done.
             ("night-stragglers", LocalNaiveTimeWindow(
+                situation: "night",
                 stop_start: Some([
                     "sudo",
 		    "/opt/silo-benchmark-ci/root/other-activity"
