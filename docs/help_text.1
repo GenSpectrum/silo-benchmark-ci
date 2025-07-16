@@ -44,8 +44,13 @@ for a commit it hasn\[cq]t seen, and as a side effect this allows
 distinguishing those programs from normal \f[V]silo\f[R] instances.
 .PP
 The \f[V]evobench-run\f[R] tool is built from the
-\f[V]\[ti]/evobench/evobench-evaluator\f[R] directory, in case you need
-to install a newer version.
+\f[V]\[ti]/evobench/evobench-evaluator\f[R] directory.
+To install a new version, after \f[V]git pull\f[R], use
+\f[V]cargo install --locked --path .\f[R] from the root of this
+directory (the \f[V]--locked\f[R] option says to use the dependencies
+from the \f[V]Cargo.lock\f[R], which are known working and partially
+reviewed or otherwise somewhat checked for supply chain safety; by
+default it would install the newest possible versions).
 .SH Queues
 .PP
 Use \f[V]evobench-run list\f[R] or \f[V]evobench-run list -v\f[R] to see

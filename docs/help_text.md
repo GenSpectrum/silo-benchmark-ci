@@ -25,8 +25,12 @@ a commit it hasn't seen, and as a side effect this allows
 distinguishing those programs from normal `silo` instances.
 
 The `evobench-run` tool is built from the
-`~/evobench/evobench-evaluator` directory, in case you need to
-install a newer version.
+`~/evobench/evobench-evaluator` directory. To install a new version,
+after `git pull`, use `cargo install --locked --path .` from the root
+of this directory (the `--locked` option says to use the dependencies
+from the `Cargo.lock`, which are known working and partially reviewed
+or otherwise somewhat checked for supply chain safety; by default it
+would install the newest possible versions).
 
 # Queues
 
