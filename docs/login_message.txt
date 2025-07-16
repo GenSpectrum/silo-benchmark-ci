@@ -1,4 +1,6 @@
 ========================================================
   Welcome to the SILO benchmarking CI system. Run the
-      `help-benchmarking` command for help!
+       `help-benchmarking` command for help!
+========================================================
+        Evobench shortcuts: list, list-all
 ========================================================

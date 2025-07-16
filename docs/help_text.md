@@ -1,5 +1,10 @@
 # SILO benchmarking CI system help
 
+There are a few shortcut commands in `/opt/silo-benchmark-ci/docs/bin/`:
+
+  - `list`: runs `watch evobench-run list` with color options
+  - `list-all`: runs `evobench-run list-all` with pager and color option
+
 # Programs and logs
 
 Everything goes through the `evobench-run` tool. Run it without

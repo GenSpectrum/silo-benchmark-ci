@@ -1,0 +1,5 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+evobench-run list-all --color=always|less -R
