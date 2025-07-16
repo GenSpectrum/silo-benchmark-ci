@@ -52,15 +52,18 @@ RunConfig(
             )),
             // Adding a second queue with the same `stop_start` action
             // (it will not be re-executed, instead the status is
-            // carried over), a little later so that the above queue
-            // is started (and finished) first, but otherwise using
-            // the same time window; it catches the jobs that aren't
-            // finished in the "night" queue above, and then on days
-            // when the "night" queue finishes early, this queue of
-            // stragglers will be run; since it is configured to *not*
+            // carried over), a little later so that some job in the
+            // above queue is started first, and with lower priority,
+            // but otherwise using the same time window; it catches
+            // the jobs that didn't manage to run in the "night" queue
+            // above (i.e. in the first night after their insertion),
+            // but then on days when the "night" queue finishes early,
+            // this queue of stragglers still allows them to be run;
+            // since it is configured to *not*
             // `move_when_time_window_ends`, jobs remain in here
             // forever, until done.
             ("night-stragglers", LocalNaiveTimeWindow(
+                priority: Some("0.5"),
                 situation: "night",
                 stop_start: Some([
                     "sudo",
