@@ -36,7 +36,8 @@ would install the newest possible versions).
 
 Use `evobench-run list` or `evobench-run list -v` to see the current
 state of the processing queues. You could run `watch evobench-run
-list` to keep seeing queue changes.
+list` (or `watch --color evobench-run list --color=always` to see
+formatting) to watch queue changes on the side.
 
 The queues consist of directories containing files, one job per file,
 under `~/.evobench-run/queues`.  If you're careful, you can move jobs

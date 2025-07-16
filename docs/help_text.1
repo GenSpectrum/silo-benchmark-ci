@@ -55,8 +55,9 @@ default it would install the newest possible versions).
 .PP
 Use \f[V]evobench-run list\f[R] or \f[V]evobench-run list -v\f[R] to see
 the current state of the processing queues.
-You could run \f[V]watch evobench-run list\f[R] to keep seeing queue
-changes.
+You could run \f[V]watch evobench-run list\f[R] (or
+\f[V]watch --color evobench-run list --color=always\f[R] to see
+formatting) to watch queue changes on the side.
 .PP
 The queues consist of directories containing files, one job per file,
 under \f[V]\[ti]/.evobench-run/queues\f[R].
