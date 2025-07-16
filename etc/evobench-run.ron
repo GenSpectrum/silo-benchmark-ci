@@ -104,9 +104,14 @@ RunConfig(
         // For server use:
         url: "https://github.com/GenSpectrum/LAPIS-SILO/",
 
-        // For the `poll` subcommand:
+        // Branches that the `poll` subcommand should check:
         remote_branch_names: [
             "main",
+            "bench_alexander",
+            "bench_anna",
+            "bench_chaoran",
+            "bench_christian",
+            "bench_fabian",
         ]
     ),
 
