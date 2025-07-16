@@ -81,7 +81,7 @@ RunConfig(
             // then with "night-stragglers" never actually moving its
             // jobs out, this is never going to be used; but leaving
             // it here in case future config edits change this)
-            ("unfinished", GraveYard),
+            // ("unfinished", GraveYard),
         ],
 
         // Where jobs go when they run out of error_budget (`None`
