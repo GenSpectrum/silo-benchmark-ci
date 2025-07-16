@@ -1,9 +1,13 @@
 # SILO benchmarking CI system help
 
+# Essentials
+
 There are a few shortcut commands in `/opt/silo-benchmark-ci/docs/bin/`:
 
   - `list`: runs `watch evobench-run list` with color options
   - `list-all`: runs `evobench-run list-all` with pager and color option
+
+The outputs are at <https://silo-benchmarks.genspectrum.org/> or in `~/silo-benchmark-outputs`.
 
 # Programs and logs
 
