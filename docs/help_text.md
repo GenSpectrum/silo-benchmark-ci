@@ -2,6 +2,10 @@
 
 # Essentials
 
+You can insert benchmarking jobs for a commit by simply
+(force-)pushing it from your laptop to your branch `bench_$USER` in
+the SILO repository on GitHub, where USER is your ssh username here.
+
 There are a few shortcut commands in `/opt/silo-benchmark-ci/docs/bin/`:
 
   - `list`: runs `watch evobench-run list` with color options
