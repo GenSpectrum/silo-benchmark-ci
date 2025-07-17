@@ -147,10 +147,11 @@ RunConfig(
         // directories, subsequent runs can be cheap compared to the
         // first one); default: 5
         count: Some(10),
-        // How many times the job can fail before it is moved to the
+        // After how many failures the job is moved to the
         // `erroneous_jobs_queue` (or dropped if that is `None`); you
         // want to use 1 for interactive use, 2-3 for CI use. default:
-        // 3
+        // 3 (i.e. 2 failures are the maximum to still allow the job
+        // to finish)
         error_budget: Some(2)
     ),
 
