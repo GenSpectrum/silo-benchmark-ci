@@ -104,12 +104,12 @@ RunConfig(
 
         // Branches that the `poll` subcommand should check:
         remote_branch_names: [
-            "main",
+    //        "main",
             "bench_alexander",
-            "bench_anna",
-            "bench_chaoran",
-            "bench_christian",
-            "bench_fabian",
+    //        "bench_anna",
+    //        "bench_chaoran",
+    //        "bench_christian",
+    //        "bench_fabian",
         ]
     ),
 
@@ -127,16 +127,21 @@ RunConfig(
     // Each `CustomParameters` group is used for a separate benchmark
     // run for each commit it.
     custom_parameters_set: CustomParametersSet([
-        CustomParameters({
-            "SORTED": "1",
-            "RANDOMIZED": "1",
-            "BENCHMARK_DATASET_NAME": "full",
-        }),
-        CustomParameters({
+	CustomParameters({
             "SORTED": "0",
             "RANDOMIZED": "1",
-            "BENCHMARK_DATASET_NAME": "full",
-        }),
+            "BENCHMARK_DATASET_NAME": "west_nile"
+        }) // ,
+        // CustomParameters({
+          //  "SORTED": "1",
+          //  "RANDOMIZED": "1",
+          //  "BENCHMARK_DATASET_NAME": "full",
+       // }),
+       // CustomParameters({
+        //    "SORTED": "0",
+        //    "RANDOMIZED": "1",
+        //    "BENCHMARK_DATASET_NAME": "full",
+        //})
     ]),
 
     // Each job receives a copy of these settings
