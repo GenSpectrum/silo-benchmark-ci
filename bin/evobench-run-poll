@@ -7,7 +7,11 @@ cd
 {
     sleep 12.41
     evobench-run poll --no-fail
-    sleep 30
+    sleep 15
+    evobench-run poll --no-fail
+    sleep 15
+    evobench-run poll --no-fail
+    sleep 15
     evobench-run poll --no-fail
 } 2>&1 | bin/log-timestamp -H >> log/evobench-poll.log
 
