@@ -2,18 +2,17 @@
 
 # Essentials
 
-You can insert benchmarking jobs for a commit by simply
-(force-)pushing it from your laptop to your branch `bench_$USER` in
-the SILO repository on GitHub, where USER is your ssh username here
-(e.g. "alexander").
+* Insert: simply force-push your commit from your laptop to your
+  branch `bench_$USER` in the SILO repository on GitHub, where USER is
+  your ssh username here (e.g. "alexander"). (Alternatively,
+  `evobench-run insert $commit`.)
 
-There are a few shortcut commands / "aliases" (you can `ls
-/opt/silo-benchmark-ci/docs/bin/` in case this list is outdated):
+* Aliases
 
-  - `list`: watch the job list (runs `watch evobench-run list` with color options)
-  - `list-all`: see all ever inserted jobs (runs `evobench-run list-all` with pager and color option)
+    - `list`: watch the job list (runs `watch evobench-run list` with color options)
+    - `list-all`: see all ever inserted jobs (runs `evobench-run list-all` with pager and color option)
 
-The outputs are at <https://silo-benchmarks.genspectrum.org/> or in `~/silo-benchmark-outputs`.
+* Outputs: see <https://silo-benchmarks.genspectrum.org/> or `~/silo-benchmark-outputs`.
 
 # Programs and logs
 
