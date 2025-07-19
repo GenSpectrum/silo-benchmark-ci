@@ -9,8 +9,11 @@
 
 * Aliases
 
-    - `list`: watch the job list (runs `watch evobench-run list` with color options)
-    - `list-all`: see all ever inserted jobs (runs `evobench-run list-all` with pager and color option)
+    - `list`: watch the job list (runs `watch evobench-run list` with
+      color options; passes through given options)
+    - `list-all`: see all ever inserted jobs (runs `evobench-run
+      list-all` with pager and color option; passes through given
+      options)
 
 * Outputs: see <https://silo-benchmarks.genspectrum.org/> or `~/silo-benchmark-outputs`.
 
