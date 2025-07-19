@@ -20,16 +20,18 @@
 .PP
 You can insert benchmarking jobs for a commit by simply (force-)pushing
 it from your laptop to your branch \f[V]bench_$USER\f[R] in the SILO
-repository on GitHub, where USER is your ssh username here.
+repository on GitHub, where USER is your ssh username here
+(e.g.\ \[lq]alexander\[rq]).
 .PP
-There are a few shortcut commands in
-\f[V]/opt/silo-benchmark-ci/docs/bin/\f[R]:
+There are a few shortcut commands / \[lq]aliases\[rq] (you can
+\f[V]ls /opt/silo-benchmark-ci/docs/bin/\f[R] in case this list is
+outdated):
 .IP \[bu] 2
-\f[V]list\f[R]: runs \f[V]watch evobench-run list\f[R] with color
-options
+\f[V]list\f[R]: watch the job list (runs
+\f[V]watch evobench-run list\f[R] with color options)
 .IP \[bu] 2
-\f[V]list-all\f[R]: runs \f[V]evobench-run list-all\f[R] with pager and
-color option
+\f[V]list-all\f[R]: see all ever inserted jobs (runs
+\f[V]evobench-run list-all\f[R] with pager and color option)
 .PP
 The outputs are at <https://silo-benchmarks.genspectrum.org/> or in
 \f[V]\[ti]/silo-benchmark-outputs\f[R].
