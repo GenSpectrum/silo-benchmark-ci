@@ -136,16 +136,16 @@ RunConfig(
             "REPEAT": "100",
             "SORTED": "0",
         }),
-        // CustomParameters({
-          //  "SORTED": "1",
-          //  "RANDOMIZED": "1",
-          //  "DATASET": "full",
-       // }),
-       // CustomParameters({
-        //    "SORTED": "0",
-        //    "RANDOMIZED": "1",
-        //    "DATASET": "full",
-        //})
+        CustomParameters({
+            "SORTED": "1",
+            "RANDOMIZED": "1",
+            "DATASET": "full",
+        }),
+        CustomParameters({
+            "SORTED": "0",
+            "RANDOMIZED": "1",
+            "DATASET": "full",
+        })
     ]),
 
     // Each job receives a copy of these settings
