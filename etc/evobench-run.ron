@@ -137,14 +137,14 @@ RunConfig(
             "SORTED": "0",
         }),
         CustomParameters({
-            "SORTED": "1",
-            "RANDOMIZED": "1",
             "DATASET": "full",
+            "RANDOMIZED": "1",
+            "SORTED": "1",
         }),
         CustomParameters({
-            "SORTED": "0",
-            "RANDOMIZED": "1",
             "DATASET": "full",
+            "RANDOMIZED": "1",
+            "SORTED": "0",
         })
     ]),
 
