@@ -119,18 +119,22 @@ RunConfig(
     // evobench daemon passes anyway (i.e. are not custom):
     // "COMMIT_ID", "EVOBENCH_LOG", "BENCH_OUTPUT_LOG")
     custom_parameters_required: {
-        "SORTED": true,
-        "RANDOMIZED": true,
+        "CONCURRENCY": true,
         "DATASET": true,
+        "RANDOMIZED": true,
+        "REPEAT": true,
+        "SORTED": true,
     },
 
     // Each `CustomParameters` group is used for a separate benchmark
     // run for each commit it.
     custom_parameters_set: CustomParametersSet([
 	CustomParameters({
-            "SORTED": "0",
-            "RANDOMIZED": "1",
+            "CONCURRENCY": "50",
             "DATASET": "west_nile",
+            "RANDOMIZED": "1",
+            "REPEAT": "100",
+            "SORTED": "0",
         }) // ,
         // CustomParameters({
           //  "SORTED": "1",
