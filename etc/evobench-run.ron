@@ -135,7 +135,7 @@ RunConfig(
             "RANDOMIZED": "1",
             "REPEAT": "100",
             "SORTED": "0",
-        }) // ,
+        }),
         // CustomParameters({
           //  "SORTED": "1",
           //  "RANDOMIZED": "1",
