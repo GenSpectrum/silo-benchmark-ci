@@ -137,13 +137,17 @@ RunConfig(
             "SORTED": "0",
         }),
         CustomParameters({
+            "CONCURRENCY": "50",
             "DATASET": "full",
             "RANDOMIZED": "1",
+            "REPEAT": "1",
             "SORTED": "1",
         }),
         CustomParameters({
+            "CONCURRENCY": "50",
             "DATASET": "full",
             "RANDOMIZED": "1",
+            "REPEAT": "1",
             "SORTED": "0",
         })
     ]),
