@@ -120,7 +120,7 @@ RunConfig(
             "bench_alexander",
     //        "bench_anna",
     //        "bench_chaoran",
-    //        "bench_christian",
+            "bench_christian",
     //        "bench_fabian",
         ]
     ),
