@@ -145,7 +145,7 @@ RunConfig(
             "CONCURRENCY": "50",
             "DATASET": "west_nile",
             "RANDOMIZED": "1",
-            "REPEAT": "100",
+            "REPEAT": "5",
             "SORTED": "0",
         }),
         // CustomParameters({
