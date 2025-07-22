@@ -124,27 +124,37 @@ RunConfig(
             ),
             // Which custom environment variables are allowed by this
             // target, whether required, and of what type (format)
-            // they must be. Do *not* list the environment variables
+            // they must be (valid types are Filename, Dirname, Bool,
+            // NonZeroU32, U32, and String (which means anything is
+            // allowed)). Do *not* list the environment variables
             // which the evobench daemon passes anyway (i.e. are not
             // custom): "COMMIT_ID", "EVOBENCH_LOG",
             // "BENCH_OUTPUT_LOG"
             allowed_custom_parameters: {
+                // SILO-specific custom parameters:
+                // For api-query: how many queries (connections) to run in parallel
                 "CONCURRENCY": AllowedCustomParameter(
                     required: true,
                     type: NonZeroU32,
                 ),
+                // subdirectory name under ~/silo-benchmark-datasets
                 "DATASET": AllowedCustomParameter(
                     required: true,
                     type: Dirname
                 ),
+                // For api-query: Whether to randomize (shuffle) the order of
+                // the queries
                 "RANDOMIZED": AllowedCustomParameter(
                     required: true,
                     type: Bool,
                 ),
+                // How many times to repeat the queries (randomizing the order
+                // happens after repetition)
                 "SORTED": AllowedCustomParameter(
                     required: true,
                     type: Bool
                 ),
+                // Whether to sort the input dataset
                 "REPEAT": AllowedCustomParameter(
                     required: true,
                     type: NonZeroU32,
@@ -241,12 +251,11 @@ RunConfig(
         ]
     },
 
-
     remote_repository: (
-        // For server use:
+        // The url to clone from
         url: "https://github.com/GenSpectrum/LAPIS-SILO/",
 
-        // Branches that the `poll` subcommand should check:
+        // Branches which should be checked by the `poll` subcommand
         remote_branch_names_for_poll: {
 	    "main": {Ref: "main_templates"},
 	    "bench_alexander": {Ref: "bench_branch_templates"},
@@ -256,7 +265,6 @@ RunConfig(
 	    "bench_fabian":  {Ref: "bench_branch_templates"},
         }
     ),
-
 
     // Each job receives a copy of these settings
     benchmarking_job_settings: BenchmarkingJobSettings(
@@ -274,14 +282,12 @@ RunConfig(
         error_budget: Some(2)
     ),
 
-
     // Job templates for using the "evobench-run insert" (or currently
     // also "insert-local", but this sub-command is planned to be
     // removed) sub-command. Reference into `job_template_lists` via
     // `Ref()`, or provide a list of JobTemplate entries directly via
     // `List()`.
     job_templates_for_insert: {Ref:"main_templates"}, // XXX ugly  ?
-
 
     /// The base of the directory hierarchy where the output files
     /// should be placed
