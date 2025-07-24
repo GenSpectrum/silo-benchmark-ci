@@ -110,59 +110,91 @@ RunConfig(
         capacity: 16,
     ),
 
+    // What command to run on the target project to execute a
+    // benchmarking run; the env variables configured in
+    // CustomParameters are set when running this command.
+    targets: {
+        "bench": BenchmarkingTarget(
+	    benchmarking_command: BenchmarkingCommand(
+                // Relative path to the subdirectory (provide "." for the top
+                // level of the working directory) where to run the command
+                subdir: "benchmarking",
+                command: "make",
+                arguments: ["bench"],
+            ),
+            // Which custom environment variables are allowed by this
+            // target, whether required, and of what type (format)
+            // they must be. Do *not* list the environment variables
+            // which the evobench daemon passes anyway (i.e. are not
+            // custom): "COMMIT_ID", "EVOBENCH_LOG",
+            // "BENCH_OUTPUT_LOG"
+            allowed_custom_parameters: {
+                "SORTED": AllowedCustomParameter(
+                    required: true,
+                    type: Bool
+                ),
+                "RANDOMIZED": AllowedCustomParameter(
+                    required: true,
+                    type: Bool,
+                ),
+                "BENCHMARK_DATASET_NAME": AllowedCustomParameter(
+                    required: true,
+                    type: Dirname
+                ),
+            },
+        ),
+    },
+
+    // A set of named job template lists, referred to by name from
+    // `job_templates_for_insert` and `remote_branch_names_for_poll`.
+    // Each job template in a list generates a separate benchmark run
+    // for each commit that is inserted. The order defines in which
+    // order the jobs are inserted (which means the job generated from
+    // the first template is scheduled first, at least if priorities
+    // are the same). `priority` is added to whatever priority the
+    // inserter asks for, and `initial_boost` is added to the job for
+    // its first run only.
+    job_template_lists: {
+        "main_templates": [
+            JobTemplate(
+                priority: "normal",
+                initial_boost: "high",
+                target_name: "bench",
+                custom_parameters: {
+                    "SORTED": "1",
+                    "RANDOMIZED": "1",
+                    "BENCHMARK_DATASET_NAME": "full",
+                },
+            ),
+            JobTemplate(
+                priority: "normal",
+                initial_boost: "normal",
+                target_name: "bench",
+                custom_parameters: {
+                    "SORTED": "0",
+                    "RANDOMIZED": "1",
+                    "BENCHMARK_DATASET_NAME": "full",
+                },
+            ),
+        ],
+    },
+
+
     remote_repository: (
         // For server use:
         url: "https://github.com/GenSpectrum/LAPIS-SILO/",
 
         // Branches that the `poll` subcommand should check:
-        remote_branch_names: [
-    //        "main",
-            "bench_alexander",
-    //        "bench_anna",
-    //        "bench_chaoran",
-            "bench_christian",
-    //        "bench_fabian",
-        ]
+        remote_branch_names_for_poll: {
+	    "main": {Ref: "main_templates"},
+	    "bench_alexander": {Ref: "main_templates"},
+	    "bench_anna":  {Ref: "main_templates"},
+	    "bench_chaoran":  {Ref: "main_templates"},
+	    "bench_christian":  {Ref: "main_templates"},
+	    "bench_fabian":  {Ref: "main_templates"},
+        }
     ),
 
-    // A list of *all* environment variables your benchmarking process
-    // can take, with a boolean that says whether they are also
-    // *required* (do *not* list the environment variables which the
-    // evobench daemon passes anyway (i.e. are not custom):
-    // "COMMIT_ID", "EVOBENCH_LOG", "BENCH_OUTPUT_LOG")
-    custom_parameters_required: {
-        "CONCURRENCY": true,
-        "DATASET": true,
-        "RANDOMIZED": true,
-        "REPEAT": true,
-        "SORTED": true,
-    },
-
-    // Each `CustomParameters` group is used for a separate benchmark
-    // run for each commit it.
-    custom_parameters_set: CustomParametersSet([
-	CustomParameters({
-            "CONCURRENCY": "50",
-            "DATASET": "west_nile",
-            "RANDOMIZED": "1",
-            "REPEAT": "5",
-            "SORTED": "0",
-        }),
-        // CustomParameters({
-        //     "CONCURRENCY": "50",
-        //     "DATASET": "full",
-        //     "RANDOMIZED": "1",
-        //     "REPEAT": "1",
-        //     "SORTED": "1",
-        // }),
-        // CustomParameters({
-        //     "CONCURRENCY": "50",
-        //     "DATASET": "full",
-        //     "RANDOMIZED": "1",
-        //     "REPEAT": "1",
-        //     "SORTED": "0",
-        // })
-    ]),
 
     // Each job receives a copy of these settings
     benchmarking_job_settings: BenchmarkingJobSettings(
@@ -180,16 +212,14 @@ RunConfig(
         error_budget: Some(2)
     ),
 
-    // What command to run on the target project to execute a
-    // benchmarking run; the env variables configured in
-    // CustomParameters are set when running this command.
-    benchmarking_command: BenchmarkingCommand(
-        // Relative path to the subdirectory (provide "." for the top
-        // level of the working directory) where to run the command
-        subdir: "benchmarking",
-        command: "make",
-        arguments: ["bench"],
-    ),
+
+    // Job templates for using the "evobench-run insert" (or currently
+    // also "insert-local", but this sub-command is planned to be
+    // removed) sub-command. Reference into `job_template_lists` via
+    // `Ref()`, or provide a list of JobTemplate entries directly via
+    // `List()`.
+    job_templates_for_insert: {Ref:"main_templates"}, // XXX ugly  ?
+
 
     /// The base of the directory hierarchy where the output files
     /// should be placed
