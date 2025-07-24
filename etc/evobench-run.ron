@@ -201,6 +201,44 @@ RunConfig(
                 },
             ),
         ],
+        "bench_branch_templates": [
+            JobTemplate(
+                priority: "1.25",
+                initial_boost: "normal",
+                target_name: "bench",
+                custom_parameters: {
+                    "CONCURRENCY": "50",
+                    "DATASET": "west_nile",
+                    "RANDOMIZED": "1",
+                    "REPEAT": "5",
+                    "SORTED": "0",
+                },
+            ),
+           // JobTemplate(
+           //      priority: "normal",
+           //      initial_boost: "normal",
+           //      target_name: "bench",
+           //      custom_parameters: {
+           //          "CONCURRENCY": "50",
+           //          "DATASET": "full",
+           //          "RANDOMIZED": "1",
+           //          "REPEAT": "1",
+           //          "SORTED": "1",
+           //      },
+           //  ),
+           //  JobTemplate(
+           //      priority: "normal",
+           //      initial_boost: "normal",
+           //      target_name: "bench",
+           //      custom_parameters: {
+           //          "CONCURRENCY": "50",
+           //          "DATASET": "full",
+           //          "RANDOMIZED": "1",
+           //          "REPEAT": "1",
+           //          "SORTED": "0",
+           //      },
+           //  ),
+        ]
     },
 
 
@@ -211,11 +249,11 @@ RunConfig(
         // Branches that the `poll` subcommand should check:
         remote_branch_names_for_poll: {
 	    "main": {Ref: "main_templates"},
-	    "bench_alexander": {Ref: "main_templates"},
-	    "bench_anna":  {Ref: "main_templates"},
-	    "bench_chaoran":  {Ref: "main_templates"},
-	    "bench_christian":  {Ref: "main_templates"},
-	    "bench_fabian":  {Ref: "main_templates"},
+	    "bench_alexander": {Ref: "bench_branch_templates"},
+	    "bench_anna":  {Ref: "bench_branch_templates"},
+	    "bench_chaoran":  {Ref: "bench_branch_templates"},
+	    "bench_christian":  {Ref: "bench_branch_templates"},
+	    "bench_fabian":  {Ref: "bench_branch_templates"},
         }
     ),
 
