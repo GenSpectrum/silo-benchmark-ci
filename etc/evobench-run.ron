@@ -129,17 +129,25 @@ RunConfig(
             // custom): "COMMIT_ID", "EVOBENCH_LOG",
             // "BENCH_OUTPUT_LOG"
             allowed_custom_parameters: {
-                "SORTED": AllowedCustomParameter(
+                "CONCURRENCY": AllowedCustomParameter(
                     required: true,
-                    type: Bool
+                    type: NonZeroU32,
+                ),
+                "DATASET": AllowedCustomParameter(
+                    required: true,
+                    type: Dirname
                 ),
                 "RANDOMIZED": AllowedCustomParameter(
                     required: true,
                     type: Bool,
                 ),
-                "BENCHMARK_DATASET_NAME": AllowedCustomParameter(
+                "SORTED": AllowedCustomParameter(
                     required: true,
-                    type: Dirname
+                    type: Bool
+                ),
+                "REPEAT": AllowedCustomParameter(
+                    required: true,
+                    type: NonZeroU32,
                 ),
             },
         ),
@@ -157,13 +165,27 @@ RunConfig(
     job_template_lists: {
         "main_templates": [
             JobTemplate(
-                priority: "normal",
-                initial_boost: "high",
+                priority: "high",
+                initial_boost: "normal",
                 target_name: "bench",
                 custom_parameters: {
-                    "SORTED": "1",
+                    "CONCURRENCY": "50",
+                    "DATASET": "west_nile",
                     "RANDOMIZED": "1",
-                    "BENCHMARK_DATASET_NAME": "full",
+                    "REPEAT": "5",
+                    "SORTED": "0",
+                },
+            ),
+           JobTemplate(
+                priority: "normal",
+                initial_boost: "normal",
+                target_name: "bench",
+                custom_parameters: {
+                    "CONCURRENCY": "50",
+                    "DATASET": "full",
+                    "RANDOMIZED": "1",
+                    "REPEAT": "1",
+                    "SORTED": "1",
                 },
             ),
             JobTemplate(
@@ -171,9 +193,11 @@ RunConfig(
                 initial_boost: "normal",
                 target_name: "bench",
                 custom_parameters: {
-                    "SORTED": "0",
+                    "CONCURRENCY": "50",
+                    "DATASET": "full",
                     "RANDOMIZED": "1",
-                    "BENCHMARK_DATASET_NAME": "full",
+                    "REPEAT": "1",
+                    "SORTED": "0",
                 },
             ),
         ],
