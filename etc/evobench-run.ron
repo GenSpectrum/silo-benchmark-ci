@@ -110,9 +110,11 @@ RunConfig(
         capacity: 16,
     ),
 
-    // What command to run on the target project to execute a
-    // benchmarking run; the env variables configured in
-    // CustomParameters are set when running this command.
+    // Targets are referred to by name from the `target_name` field in
+    // `JobTemplate` (the names have no other significance). Each
+    // target specifies what command to run on the target project to
+    // execute a benchmarking run, and what custom environment
+    // variables are used or expected for it.
     targets: {
         "bench": BenchmarkingTarget(
 	    benchmarking_command: BenchmarkingCommand(
@@ -251,14 +253,38 @@ RunConfig(
         ]
     },
 
+    // Job templates for using the "evobench-run insert" or
+    // "insert-local" sub-commands. Reference into
+    // `job_template_lists` via `{Ref:".."}`, or provide a list of
+    // JobTemplate entries directly via `{List:[..]}`.
+    job_templates_for_insert: {Ref:"main_templates"},
+
     remote_repository: (
         // The url to clone from
         url: "https://github.com/GenSpectrum/LAPIS-SILO/",
 
-        // Branches which should be checked by the `poll` subcommand
+        // Branches which should be checked by the `poll` subcommand,
+        // and what job templates should be used to insert jobs for
+        // commits from the branch; use `Ref:` to refer to one of the
+        // names in `job_template_lists`, or `Value` to provide a
+        // JobTemplate list directly.
         remote_branch_names_for_poll: {
 	    "main": {Ref: "main_templates"},
 	    "bench_alexander": {Ref: "bench_branch_templates"},
+	    "bench_alexander2": {Value: [
+                JobTemplate(
+                    priority: "1.25",
+                    initial_boost: "normal",
+                    target_name: "bench",
+                    custom_parameters: {
+                        "CONCURRENCY": "50",
+                        "DATASET": "west_nile",
+                        "RANDOMIZED": "1",
+                        "REPEAT": "5",
+                        "SORTED": "0",
+                    },
+                ),
+            ]},
 	    "bench_anna":  {Ref: "bench_branch_templates"},
 	    "bench_chaoran":  {Ref: "bench_branch_templates"},
 	    "bench_christian":  {Ref: "bench_branch_templates"},
@@ -281,13 +307,6 @@ RunConfig(
         // to finish)
         error_budget: Some(2)
     ),
-
-    // Job templates for using the "evobench-run insert" (or currently
-    // also "insert-local", but this sub-command is planned to be
-    // removed) sub-command. Reference into `job_template_lists` via
-    // `Ref()`, or provide a list of JobTemplate entries directly via
-    // `List()`.
-    job_templates_for_insert: {Ref:"main_templates"}, // XXX ugly  ?
 
     /// The base of the directory hierarchy where the output files
     /// should be placed
