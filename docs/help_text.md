@@ -12,9 +12,8 @@
     - `list`: watch the job list (runs `watch evobench-run list` with
       color options, or if options are passed, pipes to less instead;
       `-v` and `-a` are the most likely used options.)
-    - `list-all`: see all ever inserted jobs (runs `evobench-run
-      list-all` with pager and color option; passes through given
-      options)
+    - `list-all`: see all ever inserted jobs (runs `evobench-run list-all` 
+      with pager and color option; passes through given options)
 
 * Outputs: see <https://silo-benchmarks.genspectrum.org/> or `~/silo-benchmark-outputs`.
 
