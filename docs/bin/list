@@ -2,4 +2,8 @@
 set -meuo pipefail
 IFS=
 
-watch --color evobench-run list --color=always "$@"
+if [ $# -ne 0 ]; then
+    evobench-run list --color=always "$@" 2>&1 | less -R
+else
+    watch --color evobench-run list --color=always "$@"
+fi
