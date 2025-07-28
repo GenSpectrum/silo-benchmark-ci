@@ -128,10 +128,10 @@ RunConfig(
             // target, whether required, and of what type (format)
             // they must be (valid types are Filename, Dirname, Bool,
             // NonZeroU32, U32, and String (which means anything is
-            // allowed)). Do *not* list the environment variables
-            // which the evobench daemon passes anyway (i.e. are not
-            // custom): "COMMIT_ID", "EVOBENCH_LOG",
-            // "BENCH_OUTPUT_LOG"
+            // allowed)). Do not list the environment variables which
+            // the evobench daemon passes anyway (i.e. are not custom:
+            // "COMMIT_ID", "EVOBENCH_LOG", "BENCH_OUTPUT_LOG";
+            // evobench refuses them at load time).
             allowed_custom_parameters: {
                 // SILO-specific custom parameters:
                 // For api-query: how many queries (connections) to run in parallel
