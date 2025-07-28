@@ -150,13 +150,13 @@ RunConfig(
                     required: true,
                     type: Bool,
                 ),
-                // How many times to repeat the queries (randomizing the order
-                // happens after repetition)
+                // Whether to sort the input dataset
                 "SORTED": AllowedCustomParameter(
                     required: true,
                     type: Bool
                 ),
-                // Whether to sort the input dataset
+                // How many times to repeat the queries (randomizing the order
+                // happens after repetition)
                 "REPEAT": AllowedCustomParameter(
                     required: true,
                     type: NonZeroU32,
