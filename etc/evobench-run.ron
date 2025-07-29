@@ -255,9 +255,9 @@ RunConfig(
 
     // Job templates for using the "evobench-run insert" or
     // "insert-local" sub-commands. Reference into
-    // `job_template_lists` via `{Ref:".."}`, or provide a list of
-    // JobTemplate entries directly via `{List:[..]}`.
-    job_templates_for_insert: {Ref:"main_templates"},
+    // `job_template_lists` via `Ref("..")`, or provide a list of
+    // JobTemplate entries directly via `Val([..])`.
+    job_templates_for_insert: Ref("main_templates"),
 
     remote_repository: (
         // The url to clone from
@@ -265,13 +265,13 @@ RunConfig(
 
         // Branches which should be checked by the `poll` subcommand,
         // and what job templates should be used to insert jobs for
-        // commits from the branch; use `Ref:` to refer to one of the
-        // names in `job_template_lists`, or `Value` to provide a
-        // JobTemplate list directly.
+        // commits from the branch; use `Ref(..)` to refer to one of
+        // the names in `job_template_lists`, or `Val([..])` to
+        // provide a JobTemplate list directly.
         remote_branch_names_for_poll: {
-	    "main": {Ref: "main_templates"},
-	    "bench_alexander": {Ref: "bench_branch_templates"},
-	    "bench_alexander2": {Value: [
+	    "main": Ref("main_templates"),
+	    "bench_alexander": Ref("bench_branch_templates"),
+	    "bench_alexander2": Val([
                 JobTemplate(
                     priority: "1.25",
                     initial_boost: "normal",
@@ -284,11 +284,11 @@ RunConfig(
                         "SORTED": "0",
                     },
                 ),
-            ]},
-	    "bench_anna":  {Ref: "bench_branch_templates"},
-	    "bench_chaoran":  {Ref: "bench_branch_templates"},
-	    "bench_christian":  {Ref: "bench_branch_templates"},
-	    "bench_fabian":  {Ref: "bench_branch_templates"},
+            ]),
+	    "bench_anna":  Ref("bench_branch_templates"),
+	    "bench_chaoran":  Ref("bench_branch_templates"),
+	    "bench_christian":  Ref("bench_branch_templates"),
+	    "bench_fabian":  Ref("bench_branch_templates"),
         }
     ),
 
