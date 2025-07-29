@@ -107,10 +107,15 @@ where to find that.
 # Configuration
 
 If you want to read or need to edit the configuration, you find it in
-`~/etc/`, which is a symlink to `/opt/silo-benchmark-ci/etc`. The file
+`~/etc/`, which is a symlink to `~/.silo-benchmark-ci/etc`. The file
 `evobench-run.ron` in this directory is referenced by symlink from
 `~/.evobench-run.ron`, which is the location read by
-`evobench-run`. This location is owned by root, so use sudo from your
-own account. Since this is a Git repository, please commit your
+`evobench-run`. Since this is a Git repository, please commit your
 changes------they should end up on
 <https://github.com/GenSpectrum/silo-benchmark-ci/> eventually.
+
+That same repository is also independently cloned at
+`/opt/silo-benchmark-ci`, but just for the
+`/opt/silo-benchmark-ci/root/other-activity` file, which is configured
+to be executed via sudo (hence we keep this file separate, owned by
+root, for security).

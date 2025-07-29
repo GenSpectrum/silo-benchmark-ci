@@ -142,11 +142,16 @@ config file, see below for where to find that.
 .PP
 If you want to read or need to edit the configuration, you find it in
 \f[V]\[ti]/etc/\f[R], which is a symlink to
-\f[V]/opt/silo-benchmark-ci/etc\f[R].
+\f[V]\[ti]/.silo-benchmark-ci/etc\f[R].
 The file \f[V]evobench-run.ron\f[R] in this directory is referenced by
 symlink from \f[V]\[ti]/.evobench-run.ron\f[R], which is the location
 read by \f[V]evobench-run\f[R].
-This location is owned by root, so use sudo from your own account.
 Since this is a Git repository, please commit your changes\[em]\[em]they
 should end up on <https://github.com/GenSpectrum/silo-benchmark-ci/>
 eventually.
+.PP
+That same repository is also independently cloned at
+\f[V]/opt/silo-benchmark-ci\f[R], but just for the
+\f[V]/opt/silo-benchmark-ci/root/other-activity\f[R] file, which is
+configured to be executed via sudo (hence we keep this file separate,
+owned by root, for security).
