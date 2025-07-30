@@ -188,30 +188,30 @@ RunConfig(
                     "SORTED": "0",
                 },
             ),
-            JobTemplate(
-                priority: "normal",
-                initial_boost: "normal",
-                target_name: "bench",
-                custom_parameters: {
-                    "CONCURRENCY": "50",
-                    "DATASET": "full",
-                    "RANDOMIZED": "1",
-                    "REPEAT": "1",
-                    "SORTED": "1",
-                },
-            ),
-            JobTemplate(
-                priority: "normal",
-                initial_boost: "normal",
-                target_name: "bench",
-                custom_parameters: {
-                    "CONCURRENCY": "50",
-                    "DATASET": "full",
-                    "RANDOMIZED": "1",
-                    "REPEAT": "1",
-                    "SORTED": "0",
-                },
-            ),
+            // JobTemplate(
+            //     priority: "normal",
+            //     initial_boost: "normal",
+            //     target_name: "bench",
+            //     custom_parameters: {
+            //         "CONCURRENCY": "50",
+            //         "DATASET": "full",
+            //         "RANDOMIZED": "1",
+            //         "REPEAT": "1",
+            //         "SORTED": "1",
+            //     },
+            // ),
+            // JobTemplate(
+            //     priority: "normal",
+            //     initial_boost: "normal",
+            //     target_name: "bench",
+            //     custom_parameters: {
+            //         "CONCURRENCY": "50",
+            //         "DATASET": "full",
+            //         "RANDOMIZED": "1",
+            //         "REPEAT": "1",
+            //         "SORTED": "0",
+            //     },
+            // ),
         ],
         "bench_branch_templates": [
             JobTemplate(
