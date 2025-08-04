@@ -119,3 +119,8 @@ That same repository is also independently cloned at
 `/opt/silo-benchmark-ci/root/other-activity` file, which is configured
 to be executed via sudo (hence we keep this file separate, owned by
 root, for security).
+
+# SEE ALSO
+
+* [Evobench documentation](https://github.com/GenSpectrum/evobench/blob/master/evobench-evaluator/docs/overview.md)
+
