@@ -110,14 +110,24 @@ RunConfig(
         capacity: 16,
     ),
 
-    // Targets are referred to by name from the `target_name` field in
-    // `JobTemplate` (the names have no other significance). Each
-    // target specifies what command to run on the target project to
-    // execute a benchmarking run, and what custom environment
-    // variables are used or expected for it.
-    targets: {
-        "bench": BenchmarkingTarget(
+    // Targets are identified by `benchmarking_command.target_name`,
+    // matched to the `target_name` field in `JobTemplate` (the names
+    // have no other significance). Each target specifies what command
+    // to run on the target project to execute a benchmarking run, and
+    // what custom environment variables are used or expected for it.
+    targets: [
+        BenchmarkingTarget(
 	    benchmarking_command: BenchmarkingCommand(
+                // This name is matched to the `target_name` field in
+                // `JobTemplate`, and it is used as the first path
+                // segment below `output_base_dir` for storing the
+                // results. It will also be shown by `evobench-run
+                // list`. Note that this field is part of the
+                // benchmarking key (as are the other fields here!),
+                // i.e. changing `target_name` leads to potential
+                // re-evaluation of a commit even if nothing else
+                // changed.
+                target_name: "bench",
                 // Relative path to the subdirectory (provide "." for the top
                 // level of the working directory) where to run the command
                 subdir: "benchmarking",
@@ -163,7 +173,7 @@ RunConfig(
                 ),
             },
         ),
-    },
+    ],
 
     // A set of named job template lists, referred to by name from
     // `job_templates_for_insert` and `remote_branch_names_for_poll`.
