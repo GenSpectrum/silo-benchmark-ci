@@ -127,7 +127,7 @@ RunConfig(
                 // i.e. changing `target_name` leads to potential
                 // re-evaluation of a commit even if nothing else
                 // changed.
-                target_name: "bench",
+                target_name: "api",
                 // Relative path to the subdirectory (provide "." for the top
                 // level of the working directory) where to run the command
                 subdir: "benchmarking",
@@ -189,7 +189,7 @@ RunConfig(
             JobTemplate(
                 priority: "high",
                 initial_boost: "normal",
-                target_name: "bench",
+                target_name: "api",
                 custom_parameters: {
                     "CONCURRENCY": "50",
                     "DATASET": "west_nile",
@@ -201,7 +201,7 @@ RunConfig(
             // JobTemplate(
             //     priority: "normal",
             //     initial_boost: "normal",
-            //     target_name: "bench",
+            //     target_name: "api",
             //     custom_parameters: {
             //         "CONCURRENCY": "50",
             //         "DATASET": "full",
@@ -213,7 +213,7 @@ RunConfig(
             // JobTemplate(
             //     priority: "normal",
             //     initial_boost: "normal",
-            //     target_name: "bench",
+            //     target_name: "api",
             //     custom_parameters: {
             //         "CONCURRENCY": "50",
             //         "DATASET": "full",
@@ -227,7 +227,7 @@ RunConfig(
             JobTemplate(
                 priority: "1.25",
                 initial_boost: "normal",
-                target_name: "bench",
+                target_name: "api",
                 custom_parameters: {
                     "CONCURRENCY": "50",
                     "DATASET": "west_nile",
@@ -239,7 +239,7 @@ RunConfig(
             // JobTemplate(
             //     priority: "normal",
             //     initial_boost: "normal",
-            //     target_name: "bench",
+            //     target_name: "api",
             //     custom_parameters: {
             //         "CONCURRENCY": "50",
             //         "DATASET": "full",
@@ -251,7 +251,7 @@ RunConfig(
             // JobTemplate(
             //     priority: "normal",
             //     initial_boost: "normal",
-            //     target_name: "bench",
+            //     target_name: "api",
             //     custom_parameters: {
             //         "CONCURRENCY": "50",
             //         "DATASET": "full",
@@ -285,7 +285,7 @@ RunConfig(
                 JobTemplate(
                     priority: "1.25",
                     initial_boost: "normal",
-                    target_name: "bench",
+                    target_name: "api",
                     custom_parameters: {
                         "CONCURRENCY": "50",
                         "DATASET": "west_nile",
