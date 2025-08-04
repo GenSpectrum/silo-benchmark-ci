@@ -207,8 +207,29 @@ RunConfig(
     // its first run only.
     job_template_lists: {
         "main_templates": [
+            // We want the jobs from this "preprocessing" template to
+            // run before those from the next one ("api" sibling), so
+            // we put it first; that way it is inserted into the
+            // pipeline first, avoiding the risk that in spite of the
+            // boosted priority the other job is picked up first. The
+            // reason we want it to run first is so that the "api" job
+            // can just re-use the result of this "preprocessing" job,
+            // avoiding the need for the "api" job to run the
+            // preprocessing (which it would do without data capture),
+            // hence saving one preprocessing run.
             JobTemplate(
-                priority: "high",
+                priority: "-1",
+                // make initial total priority higher (1.25 > 1) than
+                // the "api" sibling below
+                initial_boost: "2.25",
+                target_name: "preprocessing",
+                custom_parameters: {
+                    "DATASET": "west_nile",
+                    "SORTED": "0",
+                },
+            ),
+            JobTemplate(
+                priority: "1",
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
@@ -219,6 +240,7 @@ RunConfig(
                     "SORTED": "0",
                 },
             ),
+
             // JobTemplate(
             //     priority: "normal",
             //     initial_boost: "normal",
