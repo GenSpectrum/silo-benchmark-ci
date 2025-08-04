@@ -132,7 +132,7 @@ RunConfig(
                 // level of the working directory) where to run the command
                 subdir: "benchmarking",
                 command: "make",
-                arguments: ["bench"],
+                arguments: ["api"],
             ),
             // Which custom environment variables are allowed by this
             // target, whether required, and of what type (format)
@@ -173,6 +173,27 @@ RunConfig(
                 ),
             },
         ),
+        // For docs see the entry above
+        BenchmarkingTarget(
+	    benchmarking_command: BenchmarkingCommand(
+                target_name: "preprocessing",
+                subdir: "benchmarking",
+                command: "make",
+                arguments: ["preprocessing"],
+            ),
+            allowed_custom_parameters: {
+                // subdirectory name under ~/silo-benchmark-datasets
+                "DATASET": AllowedCustomParameter(
+                    required: true,
+                    type: Dirname
+                ),
+                // Whether to sort the input dataset
+                "SORTED": AllowedCustomParameter(
+                    required: true,
+                    type: Bool
+                ),
+            },
+        )
     ],
 
     // A set of named job template lists, referred to by name from
