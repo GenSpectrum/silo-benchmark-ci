@@ -212,19 +212,20 @@ RunConfig(
         "main_templates": [
             // We want the jobs from this "preprocessing" template to
             // run before those from the next one ("api" sibling), so
-            // we put it first; that way it is inserted into the
-            // pipeline first, avoiding the risk that in spite of the
-            // boosted priority the other job is picked up first. The
-            // reason we want it to run first is so that the "api" job
-            // can just re-use the result of this "preprocessing" job,
-            // avoiding the need for the "api" job to run the
-            // preprocessing (which it would do without data capture),
-            // hence saving one preprocessing run.
+            // we put it here first; that way it is inserted into the
+            // pipeline first, ensuring that if the daemon races us,
+            // it is picked up before the other job is added (a higher
+            // priority wouldn't help in this case). The reason we
+            // want it to run first is so that the "api" job can just
+            // re-use the result of this "preprocessing" job, avoiding
+            // the need for the "api" job to run the preprocessing on
+            // its own (which it would do without data capture), hence
+            // saving one preprocessing run.
             JobTemplate(
                 priority: "-1",
-                // make initial total priority higher (1.25 > 1) than
-                // the "api" sibling below
-                initial_boost: "2.25",
+                // make initial total priority at least as high (-1 +
+                // 2 >= 1) as the "api" sibling's below
+                initial_boost: "2",
                 target_name: "preprocessing",
                 custom_parameters: {
                     "DATASET": "west_nile",
