@@ -210,6 +210,9 @@ RunConfig(
     // its first run only.
     job_template_lists: {
         "main_templates": [
+            // For the "west_nile" dataset, we collect preprocessing
+            // information.
+
             // We want the jobs from this "preprocessing" template to
             // run before those from the next one ("api" sibling), so
             // we put it here first; that way it is inserted into the
@@ -245,30 +248,35 @@ RunConfig(
                 },
             ),
 
-            // JobTemplate(
-            //     priority: "normal",
-            //     initial_boost: "normal",
-            //     target_name: "api",
-            //     custom_parameters: {
-            //         "CONCURRENCY": "50",
-            //         "DATASET": "full",
-            //         "RANDOMIZED": "1",
-            //         "REPEAT": "1",
-            //         "SORTED": "1",
-            //     },
-            // ),
-            // JobTemplate(
-            //     priority: "normal",
-            //     initial_boost: "normal",
-            //     target_name: "api",
-            //     custom_parameters: {
-            //         "CONCURRENCY": "50",
-            //         "DATASET": "full",
-            //         "RANDOMIZED": "1",
-            //         "REPEAT": "1",
-            //         "SORTED": "0",
-            //     },
-            // ),
+            // For the "full" dataset, we do not collect preprocessing
+            // information because it would be too much data. Let the
+            // "api" target run the preprocessing itself (without
+            // capturing benchmarking information).
+
+            JobTemplate(
+                priority: "normal",
+                initial_boost: "normal",
+                target_name: "api",
+                custom_parameters: {
+                    "CONCURRENCY": "50",
+                    "DATASET": "full",
+                    "RANDOMIZED": "1",
+                    "REPEAT": "1",
+                    "SORTED": "1",
+                },
+            ),
+            JobTemplate(
+                priority: "normal",
+                initial_boost: "normal",
+                target_name: "api",
+                custom_parameters: {
+                    "CONCURRENCY": "50",
+                    "DATASET": "full",
+                    "RANDOMIZED": "1",
+                    "REPEAT": "1",
+                    "SORTED": "0",
+                },
+            ),
         ],
         "bench_branch_templates": [
             JobTemplate(
