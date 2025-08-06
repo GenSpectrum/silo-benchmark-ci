@@ -17,6 +17,8 @@
 
 * Outputs: see <https://silo-benchmarks.genspectrum.org/> or `~/silo-benchmark-outputs`.
 
+* To investigate an error, see "How to investigate a job failure" below
+
 # Programs and logs
 
 Everything goes through the `evobench-run` tool. Run it without
@@ -51,43 +53,66 @@ would install the newest possible versions).
 
 # Queues
 
-Use `evobench-run list` or `evobench-run list -v` to see the current
-state of the processing queues. You could run `watch evobench-run
-list` (or `watch --color evobench-run list --color=always` to see
-formatting) to watch queue changes on the side.
+Use `evobench-run list` to see the current state of the processing
+queues (it also has `-a` and `-v` options, see `evobench-run list
+--help`). To keep watching changes, just run the `list` wrapper
+script.
 
 The queues consist of directories containing files, one job per file,
 under `~/.evobench-run/queues`.  If you're careful, you can move jobs
 between queues by just moving the files (using the `mv` command or
-similar), except you shouldn't move the file if it is currently locked
-(which means, being executed). Use `evobench-run list -v` to both see
-the file names for each job, and whether it is locked. (A subcommand
-to do such moves safely could be added if desired.)
+similar), except you shouldn't move the file if it is currently being
+executed. Use `evobench-run list -v` to both see the file names for
+each job, and whether it is running (`R`).
+
+(Possible todo: add convenience commands?)
 
 # Working directories
 
 evobench-run maintains a pool of working directories (clones of the
 target project repository) under
 `~/.evobench-run/working_directory_pool/` that it uses to avoid the
-need to rebuild when a job for the same commit id is run again. When
-there is a failure (be it build or run time) in a particular working
-directory, it is set aside to allow investigation. Also saved in this
-directory are log files of the outputs (stderr lines as "E" and stdout
-lines as "O") of the process under benchmarking.
+need to rebuild when a job for the same commit id is run again. 
+
+When there is a failure during execution (be it build or run time) in
+a particular working directory, the directory is taken out of active
+use by the benchmarking runner to allow investigation. The marking is
+done by storing `status: Error` in the `$n.status` file for the
+directory in question; the status file is also marked as executable as
+a hack to make it easy to see which directories are in error status
+via ls (`ls -lrt ~/.evobench-run/working_directory_pool/`). The pool
+directory also contains a `current` symlink that is changed to the
+working directory whenever a job is run in it (it is left around after
+the job is finished).
+
+For each job run, a file `$n.output_of_benchmarking_command_at_...` is
+created, that contains the parameters used to run the job, and then
+its output (stderr lines as "E" and stdout lines as "O"). And for each
+job that resulted in an error, additionally a file `$n.error_at_...`
+is created that contains the error (if the error was issued by the
+target project (SILO), then it's easier to see the message in the
+`$n.output_of...` file, though).
+
+## How to investigate a job failure
 
 So if there was a failure (a job ended up in the "erroneous-jobs"
-queue) that you want to investigate:
+queue), you can check for the reason this way:
 
-      cd ~/.evobench-run/working_directory_pool/
-      ls -lrt
+1. Get the working directory number that it was last executed in
+   (shown by `list`, in the "WD" column).
+   
+2. Look at the errror and/or output of the command:
 
-Then find the right `*.error_at_*` file, and for the same timestamp,
-the `*.output_of_benchmarking_command_at_*` file. `cd N.*/` where N
-is the number of the working directory that had the error. If you
-need to work with SILO inside, rename the directory back to just N
-first. Renaming back to N is also giving it back to the pool, so it
-can be re-used for benchmarking (but it will currently only be picked up when
-the daemon is restarted (potential TODO for improvements)).
+        cd ~/.evobench-run/working_directory_pool/`, `
+        ls -lrt
+        # pick the last $n.error_at... or $n.output_of.. file
+        less ...
+
+3. If you need to investigate the working directory, just `cd $n` and
+   work with it; remember, it is taken out of rotation when there was
+   an error, so your work will not be interrupted.
+
+4. When done, just `rm -rf $n` (todo: easy way to give dir back into rotation?)
 
 # Results and datasets
 

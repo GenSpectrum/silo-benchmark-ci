@@ -38,6 +38,9 @@ through given options)
 .IP \[bu] 2
 Outputs: see <https://silo-benchmarks.genspectrum.org/> or
 \f[V]\[ti]/silo-benchmark-outputs\f[R].
+.IP \[bu] 2
+To investigate an error, see \[lq]How to investigate a job failure\[rq]
+below
 .SH Programs and logs
 .PP
 Everything goes through the \f[V]evobench-run\f[R] tool.
@@ -75,21 +78,20 @@ reviewed or otherwise somewhat checked for supply chain safety; by
 default it would install the newest possible versions).
 .SH Queues
 .PP
-Use \f[V]evobench-run list\f[R] or \f[V]evobench-run list -v\f[R] to see
-the current state of the processing queues.
-You could run \f[V]watch evobench-run list\f[R] (or
-\f[V]watch --color evobench-run list --color=always\f[R] to see
-formatting) to watch queue changes on the side.
+Use \f[V]evobench-run list\f[R] to see the current state of the
+processing queues (it also has \f[V]-a\f[R] and \f[V]-v\f[R] options,
+see \f[V]evobench-run list --help\f[R]).
+To keep watching changes, just run the \f[V]list\f[R] wrapper script.
 .PP
 The queues consist of directories containing files, one job per file,
 under \f[V]\[ti]/.evobench-run/queues\f[R].
 If you\[cq]re careful, you can move jobs between queues by just moving
 the files (using the \f[V]mv\f[R] command or similar), except you
-shouldn\[cq]t move the file if it is currently locked (which means,
-being executed).
+shouldn\[cq]t move the file if it is currently being executed.
 Use \f[V]evobench-run list -v\f[R] to both see the file names for each
-job, and whether it is locked.
-(A subcommand to do such moves safely could be added if desired.)
+job, and whether it is running (\f[V]R\f[R]).
+.PP
+(Possible todo: add convenience commands?)
 .SH Working directories
 .PP
 evobench-run maintains a pool of working directories (clones of the
@@ -97,31 +99,54 @@ target project repository) under
 \f[V]\[ti]/.evobench-run/working_directory_pool/\f[R] that it uses to
 avoid the need to rebuild when a job for the same commit id is run
 again.
-When there is a failure (be it build or run time) in a particular
-working directory, it is set aside to allow investigation.
-Also saved in this directory are log files of the outputs (stderr lines
-as \[lq]E\[rq] and stdout lines as \[lq]O\[rq]) of the process under
-benchmarking.
+.PP
+When there is a failure during execution (be it build or run time) in a
+particular working directory, the directory is taken out of active use
+by the benchmarking runner to allow investigation.
+The marking is done by storing \f[V]status: Error\f[R] in the
+\f[V]$n.status\f[R] file for the directory in question; the status file
+is also marked as executable as a hack to make it easy to see which
+directories are in error status via ls
+(\f[V]ls -lrt \[ti]/.evobench-run/working_directory_pool/\f[R]).
+The pool directory also contains a \f[V]current\f[R] symlink that is
+changed to the working directory whenever a job is run in it (it is left
+around after the job is finished).
+.PP
+For each job run, a file
+\f[V]$n.output_of_benchmarking_command_at_...\f[R] is created, that
+contains the parameters used to run the job, and then its output (stderr
+lines as \[lq]E\[rq] and stdout lines as \[lq]O\[rq]).
+And for each job that resulted in an error, additionally a file
+\f[V]$n.error_at_...\f[R] is created that contains the error (if the
+error was issued by the target project (SILO), then it\[cq]s easier to
+see the message in the \f[V]$n.output_of...\f[R] file, though).
+.SS How to investigate a job failure
 .PP
 So if there was a failure (a job ended up in the
-\[lq]erroneous-jobs\[rq] queue) that you want to investigate:
+\[lq]erroneous-jobs\[rq] queue), you can check for the reason this way:
+.IP "1." 3
+Get the working directory number that it was last executed in (shown by
+\f[V]list\f[R], in the \[lq]WD\[rq] column).
+.IP "2." 3
+Look at the errror and/or output of the command:
+.RS 4
 .IP
 .nf
 \f[C]
-  cd \[ti]/.evobench-run/working_directory_pool/
-  ls -lrt
+ cd \[ti]/.evobench-run/working_directory_pool/\[ga], \[ga]
+ ls -lrt
+ # pick the last $n.error_at... or $n.output_of.. file
+ less ...
 \f[R]
 .fi
-.PP
-Then find the right \f[V]*.error_at_*\f[R] file, and for the same
-timestamp, the \f[V]*.output_of_benchmarking_command_at_*\f[R] file.
-\f[V]cd N.*/\f[R] where N is the number of the working directory that
-had the error.
-If you need to work with SILO inside, rename the directory back to just
-N first.
-Renaming back to N is also giving it back to the pool, so it can be
-re-used for benchmarking (but it will currently only be picked up when
-the daemon is restarted (potential TODO for improvements)).
+.RE
+.IP "3." 3
+If you need to investigate the working directory, just \f[V]cd $n\f[R]
+and work with it; remember, it is taken out of rotation when there was
+an error, so your work will not be interrupted.
+.IP "4." 3
+When done, just \f[V]rm -rf $n\f[R] (todo: easy way to give dir back
+into rotation?)
 .SH Results and datasets
 .PP
 The results are written to \f[V]\[ti]/silo-benchmark-outputs\f[R]
