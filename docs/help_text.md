@@ -63,7 +63,7 @@ under `~/.evobench-run/queues`.  If you're careful, you can move jobs
 between queues by just moving the files (using the `mv` command or
 similar), except you shouldn't move the file if it is currently being
 executed. Use `evobench-run list -v` to both see the file names for
-each job, and whether it is running (`R`).
+each job, and whether it is running (`R` or `E`).
 
 (Possible todo: add convenience commands?)
 
