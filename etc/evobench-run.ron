@@ -248,7 +248,7 @@ RunConfig(
                 },
             ),
 
-            // For the "full" dataset, we do not collect preprocessing
+            // For the "SC2open" dataset, we do not collect preprocessing
             // information because it would be too much data. Let the
             // "api" target run the preprocessing itself (without
             // capturing benchmarking information).
@@ -259,7 +259,7 @@ RunConfig(
                 target_name: "api",
                 custom_parameters: {
                     "CONCURRENCY": "50",
-                    "DATASET": "full",
+                    "DATASET": "SC2open",
                     "RANDOMIZED": "1",
                     "REPEAT": "1",
                     "SORTED": "1",
@@ -271,7 +271,7 @@ RunConfig(
                 target_name: "api",
                 custom_parameters: {
                     "CONCURRENCY": "50",
-                    "DATASET": "full",
+                    "DATASET": "SC2open",
                     "RANDOMIZED": "1",
                     "REPEAT": "1",
                     "SORTED": "0",
@@ -297,7 +297,7 @@ RunConfig(
             //     target_name: "api",
             //     custom_parameters: {
             //         "CONCURRENCY": "50",
-            //         "DATASET": "full",
+            //         "DATASET": "SC2open",
             //         "RANDOMIZED": "1",
             //         "REPEAT": "1",
             //         "SORTED": "1",
@@ -309,7 +309,7 @@ RunConfig(
             //     target_name: "api",
             //     custom_parameters: {
             //         "CONCURRENCY": "50",
-            //         "DATASET": "full",
+            //         "DATASET": "SC2open",
             //         "RANDOMIZED": "1",
             //         "REPEAT": "1",
             //         "SORTED": "0",

@@ -98,7 +98,7 @@ what's shown on <https://silo-benchmarks.genspectrum.org/>
 
 The input datasets are in `~/silo-benchmark-datasets/`. Please never
 modify existing datasets, it would invalidate existing results. Add
-a new subdirectory (besides `full`) if you want to add a different
+a new subdirectory (besides `SC2open` and `west_nile`) if you want to add a different
 dataset. You can refer to it by name via the
 `BENCHMARK_DATASET_NAME` custom parameter in the
 `custom_parameters_set` field in the config file, see below for
