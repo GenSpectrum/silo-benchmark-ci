@@ -25,5 +25,38 @@ We are currently running the system under the `evobench` user on
 
 ## Installation
 
-TODO: write up.
+1. create a user account (e.g. `evobench`)
+1. install evobench:
 
+    1. install the current stable Rust toolchain in this account via [rustup](https://rustup.rs/)
+    1. log out and in again (or source the shell startup files)
+    1. `git clone https://github.com/GenSpectrum/evobench`
+    1. `cd evobench/evobench-evaluator/; cargo install --locked --path .`
+
+1. `cd; git clone https://github.com/GenSpectrum/silo-benchmark-ci .silo-benchmark-ci`
+1. `cd; ln -s .silo-benchmark-ci/bin; ln -s .silo-benchmark-ci/etc; ln -s etc/evobench-run.ron .evobench-run.ron`
+1. create `~/silo-benchmark-datasets` directory, put subdirectories with the datasets (todo: where from?)
+1. Get conan:
+
+        python3 -m venv ~/venv
+        source ~/venv/bin/activate
+        pip install conan==2.8.1
+
+1. Start daemon (for now):
+
+        cd
+        screen
+        nohup evobench-run -v run daemon
+
+1. Add poller to crontab:
+
+        mkdir ~/log
+        echo $PATH
+        crontab -e
+
+    Add `PATH=...output from echo $PATH` to the top, and `* * * * *  bin/evobench-run-poll`
+
+## More info
+
+For the docs shown when logging into the account via ssh, see
+[docs/README.md](docs/README.md)
