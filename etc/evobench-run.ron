@@ -253,18 +253,18 @@ RunConfig(
             // "api" target run the preprocessing itself (without
             // capturing benchmarking information).
 
-            JobTemplate(
-                priority: "normal",
-                initial_boost: "normal",
-                target_name: "api",
-                custom_parameters: {
-                    "CONCURRENCY": "50",
-                    "DATASET": "SC2open",
-                    "RANDOMIZED": "1",
-                    "REPEAT": "1",
-                    "SORTED": "1",
-                },
-            ),
+            // JobTemplate(
+            //     priority: "normal",
+            //     initial_boost: "normal",
+            //     target_name: "api",
+            //     custom_parameters: {
+            //         "CONCURRENCY": "50",
+            //         "DATASET": "SC2open",
+            //         "RANDOMIZED": "1",
+            //         "REPEAT": "1",
+            //         "SORTED": "1",
+            //     },
+            // ),
             JobTemplate(
                 priority: "normal",
                 initial_boost: "normal",
