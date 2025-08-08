@@ -64,7 +64,7 @@ RunConfig(
             // configured to *not* `move_when_time_window_ends`, jobs
             // remain in here forever, until done.
             ("night-stragglers", LocalNaiveTimeWindow(
-                priority: Some("0.5"),
+                priority: Some(0.5),
                 situation: "night",
                 stop_start: Some([
                     "sudo",
@@ -225,10 +225,10 @@ RunConfig(
             // its own (which it would do without data capture), hence
             // saving one preprocessing run.
             JobTemplate(
-                priority: "-1",
+                priority: -1,
                 // make initial total priority at least as high (-1 +
                 // 2 >= 1) as the "api" sibling's below
-                initial_boost: "2",
+                initial_boost: 2,
                 target_name: "preprocessing",
                 custom_parameters: {
                     "DATASET": "west_nile",
@@ -236,7 +236,7 @@ RunConfig(
                 },
             ),
             JobTemplate(
-                priority: "1",
+                priority: 1,
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
@@ -280,7 +280,7 @@ RunConfig(
         ],
         "bench_branch_templates": [
             JobTemplate(
-                priority: "1.25",
+                priority: 1.25,
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
@@ -338,7 +338,7 @@ RunConfig(
 	    "bench_alexander": Ref("bench_branch_templates"),
 	    "bench_alexander2": Val([
                 JobTemplate(
-                    priority: "1.25",
+                    priority: 1.25,
                     initial_boost: "normal",
                     target_name: "api",
                     custom_parameters: {
