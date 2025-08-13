@@ -111,6 +111,29 @@ RunConfig(
         // chance to re-use a build with the same commit id without
         // having to rebuild
         capacity: 16,
+
+        // To enable working directory auto-cleaning, give the
+        // cleaning options. Currently "cleaning" just means full
+        // deletion by the runner with no involvement of the target
+        // project.
+        auto_clean: Some((
+            // The minimum age a working directory should reach before
+            // possibly being deleted, in days (recommended: 3)
+            min_age_days: 3,
+
+            // The minimum number of jobs that should be run in a working
+            // directory before that is possibly being deleted (recommended:
+            // 80). Currently, directories are always deleted when they reach
+            // both the `min_age_days` and `min_num_runs` numbers.
+            min_num_runs: 80,
+
+            // If true, directories are not deleted when any job for the same
+            // commit id is in the queue.  (Directories are deleted when they
+            // reach both the `min_age_days` and `min_num_runs` numbers, and
+            // this is false, or the current job just ended and no others for
+            // the commit id exist.)
+            wait_until_commit_done: true,
+        ))
     ),
 
     // Targets are identified by `benchmarking_command.target_name`,
