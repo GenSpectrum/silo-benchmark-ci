@@ -387,7 +387,7 @@ RunConfig(
         // cost, although, thanks to the re-use of working
         // directories, subsequent runs can be cheap compared to the
         // first one); default: 5
-        count: Some(6),
+        count: Some(10),
         // After how many failures the job is moved to the
         // `erroneous_jobs_queue` (or dropped if that is `None`); you
         // want to use 1 for interactive use, 2-3 for CI use. default:
