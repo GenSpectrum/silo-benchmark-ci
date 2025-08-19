@@ -34,8 +34,8 @@ RunConfig(
             // before they enter the "night" queue.
             ("immediately2", Immediately(situation: "immediate")),
             ("immediately3", Immediately(situation: "immediate")),
-            // ("immediately4", Immediately(situation: "immediate")),
-            // ("immediately5", Immediately(situation: "immediate")),
+            ("immediately4", Immediately(situation: "immediate")),
+            ("immediately5", Immediately(situation: "immediate")),
             // "local naive time" is a time without date that matches
             // every day, in the local time zone. Jobs in such a queue
             // are run in the given time window, only. When the time
