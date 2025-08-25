@@ -314,8 +314,10 @@ RunConfig(
                     "SORTED": "0",
                 },
             ),
+        ],
+        "bench_branch_templates_sc2open": [
             // JobTemplate(
-            //     priority: "normal",
+            //     priority: 1.1,
             //     initial_boost: "normal",
             //     target_name: "api",
             //     custom_parameters: {
@@ -326,19 +328,19 @@ RunConfig(
             //         "SORTED": "1",
             //     },
             // ),
-            // JobTemplate(
-            //     priority: "normal",
-            //     initial_boost: "normal",
-            //     target_name: "api",
-            //     custom_parameters: {
-            //         "CONCURRENCY": "50",
-            //         "DATASET": "SC2open",
-            //         "RANDOMIZED": "1",
-            //         "REPEAT": "1",
-            //         "SORTED": "0",
-            //     },
-            // ),
-        ]
+            JobTemplate(
+                priority: 1.1,
+                initial_boost: "normal",
+                target_name: "api",
+                custom_parameters: {
+                    "CONCURRENCY": "50",
+                    "DATASET": "SC2open",
+                    "RANDOMIZED": "1",
+                    "REPEAT": "1",
+                    "SORTED": "0",
+                },
+            ),
+        ],
     },
 
     // Job templates for using the "evobench-run insert" or
@@ -358,8 +360,21 @@ RunConfig(
         // provide a JobTemplate list directly.
         remote_branch_names_for_poll: {
 	    "main": Ref("main_templates"),
+
 	    "bench_alexander": Ref("bench_branch_templates"),
-	    "bench_alexander2": Val([
+	    "bench_anna": Ref("bench_branch_templates"),
+	    "bench_chaoran": Ref("bench_branch_templates"),
+	    "bench_christian": Ref("bench_branch_templates"),
+	    "bench_fabian": Ref("bench_branch_templates"),
+
+	    "bench_alexander_sc2open": Ref("bench_branch_templates_sc2open"),
+	    "bench_anna_sc2open": Ref("bench_branch_templates_sc2open"),
+	    "bench_chaoran_sc2open": Ref("bench_branch_templates_sc2open"),
+	    "bench_christian_sc2open": Ref("bench_branch_templates_sc2open"),
+	    "bench_fabian_sc2open": Ref("bench_branch_templates_sc2open"),
+
+            // Example for ad-hoc templates:
+	    "bench_alexander_adhoc": Val([
                 JobTemplate(
                     priority: 1.25,
                     initial_boost: "normal",
@@ -373,10 +388,6 @@ RunConfig(
                     },
                 ),
             ]),
-	    "bench_anna":  Ref("bench_branch_templates"),
-	    "bench_chaoran":  Ref("bench_branch_templates"),
-	    "bench_christian":  Ref("bench_branch_templates"),
-	    "bench_fabian":  Ref("bench_branch_templates"),
         }
     ),
 
