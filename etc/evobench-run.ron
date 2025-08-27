@@ -17,17 +17,16 @@ RunConfig(
         // the next, depending on the scheduling configuration.
         pipeline: [
             // Scheduling type `Immediately` means that jobs are
-            // picked up ASAP, i.e. immediately after a queue that
-            // started processing is finished (perhaps, once
-            // implemented, immediately after the current job is
-            // finished). Jobs of this scheduling type are run exactly
-            // once, then moved to the next queue. The `situation`
-            // parameter is used to group results into "summary-.."
-            // files; we have two here, those "during the day", but
-            // really just immediate, without disabling
-            // other-activity. And then further down, the "night" one
-            // with other-activity disabled. It's those two situations
-            // we want to compare statistically.
+            // picked up ASAP, i.e. immediately after a job that
+            // started processing is finished. Jobs of this scheduling
+            // type are run exactly once, then moved to the next
+            // queue. The `situation` parameter is used to group
+            // results into "summary-.."  files; we have two here,
+            // those outside the night period (really just
+            // "immediate"), which run without disabling other
+            // activity on the server. And then further down, the
+            // "night" one with other activity disabled. It's those
+            // two situations we want to compare statistically.
             ("immediately1", Immediately(situation: "immediate")),
             // Adding another/more `Immediately` queue(s), to have
             // jobs executed as many times (once per each queue)
@@ -38,10 +37,11 @@ RunConfig(
             ("immediately5", Immediately(situation: "immediate")),
             // "local naive time" is a time without date that matches
             // every day, in the local time zone. Jobs in such a queue
-            // are run in the given time window, only. When the time
-            // window is entered, the `stop_start` command is run with
-            // an additional `stop` argument, when the window ends or
-            // all jobs are finished, it is run with `start`.
+            // are started during the given time window, only. When
+            // the time window is entered, the `stop_start` command is
+            // run with an additional `stop` argument, when the window
+            // is exited (the time period ends or no jobs are left),
+            // it is run with `start`.
             ("night", LocalNaiveTimeWindow(
                 situation: "night",
                 stop_start: Some([
