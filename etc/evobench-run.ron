@@ -43,6 +43,7 @@ RunConfig(
             // is exited (the time period ends or no jobs are left),
             // it is run with `start`.
             ("night", LocalNaiveTimeWindow(
+                priority: Some(0),
                 situation: "night",
                 stop_start: Some([
                     "sudo",
