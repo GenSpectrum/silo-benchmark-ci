@@ -64,7 +64,7 @@ RunConfig(
             // configured to *not* `move_when_time_window_ends`, jobs
             // remain in here forever, until done.
             ("night-stragglers", LocalNaiveTimeWindow(
-                priority: Some(0.5),
+                priority: Some(-1),
                 situation: "night",
                 stop_start: Some([
                     "sudo",
