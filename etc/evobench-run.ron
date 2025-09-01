@@ -352,6 +352,17 @@ RunConfig(
                 },
             ),
         ],
+        "bench_branch_templates_sc2openp": [
+            JobTemplate(
+                priority: 1.1,
+                initial_boost: 1,
+                target_name: "preprocessing",
+                custom_parameters: {
+                    "DATASET": "SC2open",
+                    "SORTED": "0",
+                },
+            ),
+        ],
     },
 
     // Job templates for using the "evobench-run insert" or
@@ -389,6 +400,12 @@ RunConfig(
 	    "bench_chaoran_prepr": Ref("bench_branch_templates_prepr"),
 	    "bench_christian_prepr": Ref("bench_branch_templates_prepr"),
 	    "bench_fabian_prepr": Ref("bench_branch_templates_prepr"),
+
+	    "bench_alexander_sc2openp": Ref("bench_branch_templates_sc2openp"),
+	    "bench_anna_sc2openp": Ref("bench_branch_templates_sc2openp"),
+	    "bench_chaoran_sc2openp": Ref("bench_branch_templates_sc2openp"),
+	    "bench_christian_sc2openp": Ref("bench_branch_templates_sc2openp"),
+	    "bench_fabian_sc2openp": Ref("bench_branch_templates_sc2openp"),
 
             // Example for ad-hoc templates:
 	    "bench_alexander_adhoc": Val([
