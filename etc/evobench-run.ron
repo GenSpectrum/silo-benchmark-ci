@@ -355,8 +355,8 @@ RunConfig(
         ],
         "bench_branch_templates_sc2openp": [
             JobTemplate(
-                priority: 1.1,
-                initial_boost: 1,
+                priority: 1.05,
+                initial_boost: 0.1,
                 target_name: "preprocessing",
                 custom_parameters: {
                     "DATASET": "SC2open",
