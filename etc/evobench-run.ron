@@ -1,8 +1,9 @@
 // More docs may be available in the evobench source code, start with
-// `RunConfig` in `evobench-evaluator/src/run/config.rs`. (Note that
-// in the source code, many of the types have "Opts" appended to the
-// names used here, and are then converted to the type with the name
-// without this suffix while checking the configuration.)
+// `struct RunConfigOpts` in
+// `evobench-evaluator/src/run/config.rs`. (Note that in the source
+// code, many of the types have "Opts" appended to the names used
+// here, and are then converted to the type with the name without this
+// suffix while checking the configuration.)
 
 RunConfig(
     queues: (
