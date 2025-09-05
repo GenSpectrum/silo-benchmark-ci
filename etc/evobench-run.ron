@@ -161,6 +161,13 @@ RunConfig(
                 subdir: "benchmarking",
                 command: "make",
                 arguments: ["api"],
+                log_extracts: Some([
+                    LogExtract(
+                        filename: "api-query-total-seconds.txt",
+                        regex_start: "api-query iter",
+                        regex_end: "successes",
+                    ),
+                ])
             ),
             // Which custom environment variables are allowed by this
             // target, whether required, and of what type (format)
