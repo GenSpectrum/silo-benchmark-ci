@@ -161,13 +161,6 @@ RunConfig(
                 subdir: "benchmarking",
                 command: "make",
                 arguments: ["api"],
-                log_extracts: Some([
-                    LogExtract(
-                        filename: "api-query-total-seconds.txt",
-                        regex_start: "api-query iter",
-                        regex_end: "successes",
-                    ),
-                ])
             ),
             // Which custom environment variables are allowed by this
             // target, whether required, and of what type (format)
@@ -207,6 +200,19 @@ RunConfig(
                     type: NonZeroU32,
                 ),
             },
+            // Optional list of `LogExtract` declarations, to extract
+            // time spans from the stdout/stderr of the benchmark
+            // run. (Note: this is not and does not include the file
+            // optionally written by the target application to the
+            // path in the `BENCH_OUTPUT_LOG` env var!--Possible todo:
+            // offer something separate for that file?)
+            log_extracts: Some([
+                LogExtract(
+                    filename: "api-query-total-seconds.txt",
+                    regex_start: "api-query iter",
+                    regex_end: "successes",
+                ),
+            ])
         ),
         // For docs see the entry above
         BenchmarkingTarget(
