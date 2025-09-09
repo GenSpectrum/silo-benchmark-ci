@@ -1,0 +1,21 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+key_dir="$1"
+
+file_name=bench_output.log.zstd
+
+run_count=$(ls "$key_dir"/*/"$file_name" | wc -l)
+
+if [ "$run_count" != 10 ]; then
+    echo "error: run count is not 10, but: $run_count"
+    exit 1
+fi
+
+{
+ls "$key_dir"/*/"$file_name" | tail -5 | while read -r file; do
+    echo "file: '$file'" >&2
+    zstdcat "$file" | perl -wne 'if (m{thread count = (\d+)}) { print "$1\n" }' | ~/bin/statistics | tee /dev/fd/2
+done
+} | perl -wne 'if (m{median:\s*(\d+)}) { print "$1\n" }' | ~/bin/statistics
