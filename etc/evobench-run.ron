@@ -171,32 +171,41 @@ RunConfig(
             // "COMMIT_ID", "EVOBENCH_LOG", "BENCH_OUTPUT_LOG";
             // evobench refuses them at load time).
             allowed_custom_parameters: {
-                // SILO-specific custom parameters:
-                // For api-query: how many queries (connections) to run in parallel
-                "CONCURRENCY": AllowedCustomParameter(
-                    required: true,
-                    type: NonZeroU32,
-                ),
                 // subdirectory name under ~/silo-benchmark-datasets
                 "DATASET": AllowedCustomParameter(
                     required: true,
                     type: Dirname
-                ),
-                // For api-query: Whether to randomize (shuffle) the order of
-                // the queries
-                "RANDOMIZED": AllowedCustomParameter(
-                    required: true,
-                    type: Bool,
                 ),
                 // Whether to sort the input dataset
                 "SORTED": AllowedCustomParameter(
                     required: true,
                     type: Bool
                 ),
+
+                // For api-query:
+
+                // How many queries (connections) to run in parallel
+                "CONCURRENCY": AllowedCustomParameter(
+                    required: true,
+                    type: NonZeroU32,
+                ),
+                // Whether to randomize (shuffle) the order of
+                // the queries
+                "RANDOMIZED": AllowedCustomParameter(
+                    required: true,
+                    type: Bool,
+                ),
                 // How many times to repeat the queries (randomizing the order
                 // happens after repetition)
                 "REPEAT": AllowedCustomParameter(
                     required: true,
+                    type: NonZeroU32,
+                ),
+
+                // Environment variables read directly by SILO:
+
+                "SILO_API_THREADS_FOR_HTTP_CONNECTIONS": AllowedCustomParameter(
+                    required: false,
                     type: NonZeroU32,
                 ),
             },
@@ -315,6 +324,19 @@ RunConfig(
                     "SORTED": "0",
                 },
             ),
+            JobTemplate(
+                priority: "normal",
+                initial_boost: "normal",
+                target_name: "api",
+                custom_parameters: {
+                    "CONCURRENCY": "50",
+                    "DATASET": "SC2open",
+                    "RANDOMIZED": "1",
+                    "REPEAT": "1",
+                    "SILO_API_THREADS_FOR_HTTP_CONNECTIONS": "16",
+                    "SORTED": "0",
+                },
+            ),
         ],
         "bench_branch_templates": [
             JobTemplate(
@@ -352,6 +374,19 @@ RunConfig(
                     "DATASET": "SC2open",
                     "RANDOMIZED": "1",
                     "REPEAT": "1",
+                    "SORTED": "0",
+                },
+            ),
+            JobTemplate(
+                priority: 1.1,
+                initial_boost: "normal",
+                target_name: "api",
+                custom_parameters: {
+                    "CONCURRENCY": "50",
+                    "DATASET": "SC2open",
+                    "RANDOMIZED": "1",
+                    "REPEAT": "1",
+                    "SILO_API_THREADS_FOR_HTTP_CONNECTIONS": "16",
                     "SORTED": "0",
                 },
             ),
