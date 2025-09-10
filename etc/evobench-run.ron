@@ -53,7 +53,7 @@ RunConfig(
                 repeatedly: true,
                 move_when_time_window_ends: false,
                 from: "23:00",
-                to: "5:30",
+                to: "6:30",
             )),
             // Adding a second queue with the same `stop_start` action
             // (it will not be re-executed, instead the status is
