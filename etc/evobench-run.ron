@@ -51,7 +51,7 @@ RunConfig(
 		    "/opt/silo-benchmark-ci/root/other-activity"
                 ]),
                 repeatedly: true,
-                move_when_time_window_ends: true,
+                move_when_time_window_ends: false,
                 from: "23:00",
                 to: "5:30",
             )),
@@ -65,18 +65,19 @@ RunConfig(
             // stragglers still allows them to run; since it is
             // configured to *not* `move_when_time_window_ends`, jobs
             // remain in here forever, until done.
-            ("night-stragglers", LocalNaiveTimeWindow(
-                priority: Some(-1),
-                situation: "night",
-                stop_start: Some([
-                    "sudo",
-		    "/opt/silo-benchmark-ci/root/other-activity"
-                ]),
-                repeatedly: true,
-                move_when_time_window_ends: false,
-                from: "23:00",
-                to: "5:30",
-            )),
+            // -- commented out since due to a bug jobs from "night" are never moved
+            // ("night-stragglers", LocalNaiveTimeWindow(
+            //     priority: Some(-1),
+            //     situation: "night",
+            //     stop_start: Some([
+            //         "sudo",
+            //         "/opt/silo-benchmark-ci/root/other-activity"
+            //     ]),
+            //     repeatedly: true,
+            //     move_when_time_window_ends: false,
+            //     from: "23:00",
+            //     to: "5:30",
+            // )),
             // `Inactive` queues do not run their jobs, meaning jobs
             // that are moved here stay forever; this is meant as a
             // debugging/verification tool for spill overs (omitting
