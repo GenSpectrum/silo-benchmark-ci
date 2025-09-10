@@ -288,7 +288,7 @@ RunConfig(
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
-                    "CONCURRENCY": "50",
+                    "CONCURRENCY": "120",
                     "DATASET": "west_nile",
                     "RANDOMIZED": "1",
                     "REPEAT": "5",
@@ -306,7 +306,7 @@ RunConfig(
             //     initial_boost: "normal",
             //     target_name: "api",
             //     custom_parameters: {
-            //         "CONCURRENCY": "50",
+            //         "CONCURRENCY": "120",
             //         "DATASET": "SC2open",
             //         "RANDOMIZED": "1",
             //         "REPEAT": "1",
@@ -318,7 +318,7 @@ RunConfig(
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
-                    "CONCURRENCY": "50",
+                    "CONCURRENCY": "120",
                     "DATASET": "SC2open",
                     "RANDOMIZED": "1",
                     "REPEAT": "1",
@@ -330,7 +330,7 @@ RunConfig(
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
-                    "CONCURRENCY": "50",
+                    "CONCURRENCY": "120",
                     "DATASET": "SC2open",
                     "RANDOMIZED": "1",
                     "REPEAT": "1",
@@ -345,7 +345,7 @@ RunConfig(
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
-                    "CONCURRENCY": "50",
+                    "CONCURRENCY": "120",
                     "DATASET": "west_nile",
                     "RANDOMIZED": "1",
                     "REPEAT": "5",
@@ -359,7 +359,7 @@ RunConfig(
             //     initial_boost: "normal",
             //     target_name: "api",
             //     custom_parameters: {
-            //         "CONCURRENCY": "50",
+            //         "CONCURRENCY": "120",
             //         "DATASET": "SC2open",
             //         "RANDOMIZED": "1",
             //         "REPEAT": "1",
@@ -371,7 +371,7 @@ RunConfig(
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
-                    "CONCURRENCY": "50",
+                    "CONCURRENCY": "120",
                     "DATASET": "SC2open",
                     "RANDOMIZED": "1",
                     "REPEAT": "1",
@@ -383,7 +383,7 @@ RunConfig(
                 initial_boost: "normal",
                 target_name: "api",
                 custom_parameters: {
-                    "CONCURRENCY": "50",
+                    "CONCURRENCY": "120",
                     "DATASET": "SC2open",
                     "RANDOMIZED": "1",
                     "REPEAT": "1",
@@ -465,7 +465,7 @@ RunConfig(
                     initial_boost: "normal",
                     target_name: "api",
                     custom_parameters: {
-                        "CONCURRENCY": "50",
+                        "CONCURRENCY": "120",
                         "DATASET": "west_nile",
                         "RANDOMIZED": "1",
                         "REPEAT": "5",
