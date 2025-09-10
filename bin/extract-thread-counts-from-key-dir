@@ -8,8 +8,12 @@ file_name=bench_output.log.zstd
 
 run_count=$(ls "$key_dir"/*/"$file_name" | wc -l)
 
-if [ "$run_count" != 10 ]; then
-    echo "error: run count is not 10, but: $run_count"
+if [ "$run_count" == 10 ]; then
+    true
+elif [ "$run_count" == 5 ]; then
+    echo "WARNING: using day counts"
+else
+    echo "error: run count is not 10 or 5, but: $run_count"
     exit 1
 fi
 
