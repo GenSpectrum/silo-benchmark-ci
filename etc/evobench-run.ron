@@ -491,8 +491,20 @@ RunConfig(
         // to finish)
         error_budget: Some(2)
     ),
-
+    
     /// The base of the directory hierarchy where the output files
     /// should be placed
     output_base_dir: "~/silo-benchmark-outputs",
+
+    /// Optional directory holding directories whose name is taken
+    /// from the (optional, depending on the configuration) `DATASET`
+    /// custom variable (hacky to mis-use a custom variable for
+    /// this?), inside which are directories named after git revision
+    /// names (tags or commit ids), the latest which is an ancestor or
+    /// the commit itself to be benchmarked,
+    /// i.e. `$versioned_datasets_base_dir/$DATASET/$best_rev_name`. The
+    /// resolved path (only when both this option and `DATASET` are
+    /// provided) is stored in the `DATASET_DIR` env var when calling
+    /// the benchmarking entry point of the client app.
+    versioned_datasets_base_dir: Some("~/versioned-silo-benchmark-datasets"),
 )
