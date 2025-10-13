@@ -506,5 +506,5 @@ RunConfig(
     /// resolved path (only when both this option and `DATASET` are
     /// provided) is stored in the `DATASET_DIR` env var when calling
     /// the benchmarking entry point of the client app.
-    versioned_datasets_base_dir: Some("~/versioned-silo-benchmark-datasets"),
+    versioned_datasets_base_dir: Some("~/silo-benchmark-datasets"),
 )
