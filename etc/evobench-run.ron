@@ -113,7 +113,7 @@ RunConfig(
         // Smaller: less disk space use for build dirs, but less
         // chance to re-use a build with the same commit id without
         // having to rebuild
-        capacity: 16,
+        capacity: 12,
 
         // To enable working directory auto-cleaning, give the
         // cleaning options. Currently "cleaning" just means full
@@ -124,11 +124,16 @@ RunConfig(
             // possibly being deleted, in days (recommended: 3)
             min_age_days: 3,
 
-            // The minimum number of jobs that should be run in a working
-            // directory before that is possibly being deleted (recommended:
-            // 80). Currently, directories are always deleted when they reach
-            // both the `min_age_days` and `min_num_runs` numbers.
-            min_num_runs: 80,
+            // The minimum number of jobs that should be run in a
+            // working directory before that is possibly being
+            // deleted. Currently, directories are always deleted when
+            // they reach both the `min_age_days` and `min_num_runs`
+            // numbers. (40 might a good number to allow for a fresh
+            // working directory to be used if 4 jobs * 10 runs are
+            // configured. Then it's going to be deleted right after
+            // those. Bad luck if it started with a partically used
+            // directory (has to run preprocessing twice).)
+            min_num_runs: 40,
 
             // If true, directories are not deleted when any job for the same
             // commit id is in the queue.  (Directories are deleted when they
