@@ -48,7 +48,7 @@ RunConfig(
                 situation: "night",
                 stop_start: Some([
                     "sudo",
-		    "/opt/silo-benchmark-ci/root/other-activity"
+                    "/opt/silo-benchmark-ci/root/other-activity"
                 ]),
                 repeatedly: true,
                 move_when_time_window_ends: false,
@@ -151,7 +151,7 @@ RunConfig(
     // what custom environment variables are used or expected for it.
     targets: [
         BenchmarkingTarget(
-	    benchmarking_command: BenchmarkingCommand(
+            benchmarking_command: BenchmarkingCommand(
                 // This name is matched to the `target_name` field in
                 // `JobTemplate`, and it is used as the first path
                 // segment below `output_base_dir` for storing the
@@ -231,7 +231,7 @@ RunConfig(
         ),
         // For docs see the entry above
         BenchmarkingTarget(
-	    benchmarking_command: BenchmarkingCommand(
+            benchmarking_command: BenchmarkingCommand(
                 target_name: "preprocessing",
                 subdir: "benchmarking",
                 command: "make",
@@ -437,34 +437,34 @@ RunConfig(
         // the names in `job_template_lists`, or `Val([..])` to
         // provide a JobTemplate list directly.
         remote_branch_names_for_poll: {
-	    "main": Ref("main_templates"),
+            "main": Ref("main_templates"),
 
-	    "bench_alexander": Ref("bench_branch_templates"),
-	    "bench_anna": Ref("bench_branch_templates"),
-	    "bench_chaoran": Ref("bench_branch_templates"),
-	    "bench_christian": Ref("bench_branch_templates"),
-	    "bench_fabian": Ref("bench_branch_templates"),
+            "bench_alexander": Ref("bench_branch_templates"),
+            "bench_anna": Ref("bench_branch_templates"),
+            "bench_chaoran": Ref("bench_branch_templates"),
+            "bench_christian": Ref("bench_branch_templates"),
+            "bench_fabian": Ref("bench_branch_templates"),
 
-	    "bench_alexander_sc2open": Ref("bench_branch_templates_sc2open"),
-	    "bench_anna_sc2open": Ref("bench_branch_templates_sc2open"),
-	    "bench_chaoran_sc2open": Ref("bench_branch_templates_sc2open"),
-	    "bench_christian_sc2open": Ref("bench_branch_templates_sc2open"),
-	    "bench_fabian_sc2open": Ref("bench_branch_templates_sc2open"),
+            "bench_alexander_sc2open": Ref("bench_branch_templates_sc2open"),
+            "bench_anna_sc2open": Ref("bench_branch_templates_sc2open"),
+            "bench_chaoran_sc2open": Ref("bench_branch_templates_sc2open"),
+            "bench_christian_sc2open": Ref("bench_branch_templates_sc2open"),
+            "bench_fabian_sc2open": Ref("bench_branch_templates_sc2open"),
 
-	    "bench_alexander_prepr": Ref("bench_branch_templates_prepr"),
-	    "bench_anna_prepr": Ref("bench_branch_templates_prepr"),
-	    "bench_chaoran_prepr": Ref("bench_branch_templates_prepr"),
-	    "bench_christian_prepr": Ref("bench_branch_templates_prepr"),
-	    "bench_fabian_prepr": Ref("bench_branch_templates_prepr"),
+            "bench_alexander_prepr": Ref("bench_branch_templates_prepr"),
+            "bench_anna_prepr": Ref("bench_branch_templates_prepr"),
+            "bench_chaoran_prepr": Ref("bench_branch_templates_prepr"),
+            "bench_christian_prepr": Ref("bench_branch_templates_prepr"),
+            "bench_fabian_prepr": Ref("bench_branch_templates_prepr"),
 
-	    "bench_alexander_sc2openp": Ref("bench_branch_templates_sc2openp"),
-	    "bench_anna_sc2openp": Ref("bench_branch_templates_sc2openp"),
-	    "bench_chaoran_sc2openp": Ref("bench_branch_templates_sc2openp"),
-	    "bench_christian_sc2openp": Ref("bench_branch_templates_sc2openp"),
-	    "bench_fabian_sc2openp": Ref("bench_branch_templates_sc2openp"),
+            "bench_alexander_sc2openp": Ref("bench_branch_templates_sc2openp"),
+            "bench_anna_sc2openp": Ref("bench_branch_templates_sc2openp"),
+            "bench_chaoran_sc2openp": Ref("bench_branch_templates_sc2openp"),
+            "bench_christian_sc2openp": Ref("bench_branch_templates_sc2openp"),
+            "bench_fabian_sc2openp": Ref("bench_branch_templates_sc2openp"),
 
             // Example for ad-hoc templates:
-	    "bench_alexander_adhoc": Val([
+            "bench_alexander_adhoc": Val([
                 JobTemplate(
                     priority: 1.25,
                     initial_boost: "normal",
