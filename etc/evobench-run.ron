@@ -107,6 +107,11 @@ RunConfig(
         view_jobs_max_len: 8,
     ),
 
+    // The path to a file which commands running jobs (`evobench-run
+    // run ...`) lock (with error when taken). By default,
+    // `~/.evobench-run/run_jobs.lock`.
+    run_jobs_lock_path: None,
+
     working_directory_pool: (
         // base_dir: Some("other/path/than/home/.evobench-run/working_directory_pool/"),
 
