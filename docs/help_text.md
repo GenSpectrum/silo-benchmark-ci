@@ -2,12 +2,19 @@
 
 # Essentials
 
-* Insert: simply force-push your commit from your laptop to your
-  branch `bench_$USER` in the SILO repository on GitHub, where USER is
-  your ssh username here (e.g. "alexander"). (Alternatively,
-  `evobench-run insert $commit`.)
+* To insert a benchmark job, simply force-push your commit from your
+  laptop to your branch `bench_$USER` in the SILO repository on
+  GitHub, where USER is your ssh username on this server
+  (e.g. "alexander"). See `remote_branch_names_for_poll` in
+  `~/etc/evobench-run.ron` for more branch configurations.
+  
+  Alternatively, `evobench-run insert $commit`.
+  
+  Note that jobs (same commit *and* parameters), once inserted, will
+  not be re-inserted if pushed again, except the `--force` option on
+  the command line (`evobench-run insert --force $commit`) does it.
 
-* Aliases
+* Aliases for convenience
 
     - `list`: watch the job list (runs `watch evobench-run list` with
       color options, or if options are passed, pipes to less instead;
@@ -15,9 +22,11 @@
     - `list-all`: see all ever inserted jobs (runs `evobench-run list-all` 
       with pager and color option; passes through given options)
 
-* Outputs: see <https://silo-benchmarks.genspectrum.org/> or `~/silo-benchmark-outputs`.
+* Outputs: see <https://silo-benchmarks.genspectrum.org/> or
+  `~/silo-benchmark-outputs`.
 
-* To investigate an error, see "How to investigate a job failure" below
+* To investigate an error, see "How to investigate a job failure"
+  below.
 
 # Programs and logs
 
@@ -25,7 +34,8 @@ Everything goes through the `evobench-run` tool. Run it without
 arguments (or `--help`, `-h` or `help`) to get a help text.
 
   - You will primarily use the `list`, `list-all`, and `insert`
-    subcommands.
+    subcommands (perhaps via the mentioned list and list-all aliases
+    or the cron job).
   
   - The crontab runs `~/bin/evobench-run-poll`, with a log in
     `~/log/evobench-poll.log`
@@ -37,11 +47,11 @@ arguments (or `--help`, `-h` or `help`) to get a help text.
     -f ~/log/daemon.log` will show you interactively what's going on.
 
 When you see a program with a name like `silo_02daf40559` running in
-top/ps/whatever, then you know that it was started by the
-benchmarks------the SILO benchmark runner renames the binaries to make
-sure rebuilds happen precisely when re-using a working directory for
-a commit it hasn't seen, and as a side effect this allows
-distinguishing those programs from normal `silo` instances.
+top/ps, then you know that it was started by the benchmarks------the
+SILO benchmark runner renames the binaries to make sure rebuilds
+happen precisely when re-using a working directory for a commit it
+hasn't seen, and as a side effect this allows distinguishing those
+programs from normal `silo` instances.
 
 The `evobench-run` tool is built from the
 `~/evobench/evobench-evaluator` directory. To install a new version,
@@ -62,12 +72,14 @@ The queues consist of directories containing files, one job per file,
 under `~/.evobench-run/queues`.  If you're careful, you can move jobs
 between queues by just moving the files (using the `mv` command or
 similar), except you shouldn't move the file if it is currently being
-executed. Use `evobench-run list -v` to both see the file names for
-each job, and whether it is running (`R` or `E`).
+executed. Use `evobench-run list -v` (or the alias, `list -v`) to both
+see the file names for each job, and whether it is running (`R` while
+the job is running or `E` while its results are statistically
+evaluated).
 
 (Possible todo: add convenience commands?)
 
-# Working directories
+# How to investigate a job failure
 
 evobench-run maintains a pool of working directories (clones of the
 target project repository) under
@@ -75,44 +87,38 @@ target project repository) under
 need to rebuild when a job for the same commit id is run again. 
 
 When there is a failure during execution (be it build or run time) in
-a particular working directory, the directory is taken out of active
-use by the benchmarking runner to allow investigation. The marking is
-done by storing `status: Error` in the `$n.status` file for the
-directory in question; the status file is also marked as executable as
-a hack to make it easy to see which directories are in error status
-via ls (`ls -lrt ~/.evobench-run/working_directory_pool/`). The pool
-directory also contains a `current` symlink that is changed to the
-working directory whenever a job is run in it (it is left around after
-the job is finished).
+a particular working directory, the directory is marked with status
+'error', which takes it out of active use by the benchmarking runner,
+to allow for investigation of the failure. After a certain number of
+days, such working directories are automatically deleted (see the
+`evobench-run wd cleanup` entry in `crontab -l`), unless when marked
+with 'examination' status, which happens as mentioned below.
 
-For each job run, a file `$n.output_of_benchmarking_command_at_...` is
-created, that contains the parameters used to run the job, and then
-its output (stderr lines as "E" and stdout lines as "O"). And for each
-job that resulted in an error, additionally a file `$n.error_at_...`
-is created that contains the error (if the error was issued by the
-target project (SILO), then it's easier to see the message in the
-`$n.output_of...` file, though).
+Interaction with working directories is best done via the
+`evobench-run wd` subcommand.
 
-## How to investigate a job failure
+If there was a failure (a job ended up in the "erroneous-jobs" queue),
+you can check for the reason as follows:
 
-So if there was a failure (a job ended up in the "erroneous-jobs"
-queue), you can check for the reason this way:
+1. Get the working directory id (number) that the job was last
+   executed in (shown by `list` or `list -a`, in the "WD" column). You
+   can also see all working directories sorted by last activity via
+   `evobench-run wd list -s`.
 
-1. Get the working directory number that it was last executed in
-   (shown by `list`, in the "WD" column).
-   
-2. Look at the errror and/or output of the command:
+2. To see the log from the failed job, run `evobench-run wd log $id`.
 
-        cd ~/.evobench-run/working_directory_pool/`, `
-        ls -lrt
-        # pick the last $n.error_at... or $n.output_of.. file
-        less ...
+3. To examine the working directory itself, re-run the job etc., run
+   `evobench-run wd enter $id`. This opens a shell in the working
+   directory. The working directory status is set to "examination",
+   which prevents it from being auto-deleted.
 
-3. If you need to investigate the working directory, just `cd $n` and
-   work with it; remember, it is taken out of rotation when there was
-   an error, so your work will not be interrupted.
-
-4. When done, just `rm -rf $n` (todo: easy way to give dir back into rotation?)
+4. When done, just exit the shell and answer `y` regarding the
+   reversion of the dir status back to "error". If your ssh connection
+   got severed and you want to tell that you're done later:
+   `evobench-run wd unmark $id` (this just makes the directory
+   eligible again for deletion by the cronjob that is running
+   `evobench-run wd cleanup`; you can also delete the working
+   directory from the file system manually).
 
 # Results and datasets
 
@@ -122,12 +128,23 @@ The results are written to `~/silo-benchmark-outputs`
 what's shown on <https://silo-benchmarks.genspectrum.org/>
 
 The input datasets are in `~/silo-benchmark-datasets/`. Please never
-modify existing datasets, it would invalidate existing results. Add
-a new subdirectory (besides `SC2open` and `west_nile`) if you want to add a different
-dataset. You can refer to it by name via the
-`BENCHMARK_DATASET_NAME` custom parameter in the
-`custom_parameters_set` field in the config file, see below for
-where to find that.
+modify existing datasets, it would render existing results
+incomparable [1]. Add a new subdirectory (besides `SC2open` and
+`west_nile`) if you want to add a different dataset. You can refer to
+it by name via the `DATASET` custom parameter in the
+`custom_parameters` field in the config file (see below for where to
+find the config file).
+
+[1] other than change their format to adapt to newer project versions,
+if necessary, but then make a new versioned subdirectory as mentioned
+in the next paragraph
+
+The dataset files are not directly below those directories, but in
+subdirectories naming versions of the target project (SILO); either
+tag names or commit ids work for that (prefer tag names for
+readability). The files should be equivalent for all versions
+(i.e. should not have a secondary effect on performance). You can use
+symlinks to avoid copying unchanged files.
 
 # Configuration
 

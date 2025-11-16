@@ -48,13 +48,16 @@ We are currently running the system under the `evobench` user on
         screen
         nohup evobench-run -v run daemon
 
-1. Add poller to crontab:
+1. Add poller and cleanup to crontab:
 
         mkdir ~/log
-        echo $PATH
+        echo "$PATH"
         crontab -e
 
-    Add `PATH=...output from echo $PATH` to the top, and `* * * * *  bin/evobench-run-poll`
+    Add `PATH=<output from echo $PATH above>` to the top, and the following to the end:
+    
+        * * * * * bin/evobench-run-poll
+        0 22 * * * evobench-run wd cleanup stale-for-days 7
 
 ## More info
 
