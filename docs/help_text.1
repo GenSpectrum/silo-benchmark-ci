@@ -149,8 +149,10 @@ reversion of the dir status back to \[lq]error\[rq].
 If your ssh connection got severed and you want to tell that you\[cq]re
 done later: \f[V]evobench-run wd unmark $id\f[R] (this just makes the
 directory eligible again for deletion by the cronjob that is running
-\f[V]evobench-run wd cleanup\f[R]; you can also delete the working
-directory from the file system manually).
+\f[V]evobench-run wd cleanup\f[R]; if you want to delete the working
+directory immediately, run \f[V]evobench-run wd delete $id\f[R] now, or
+(carefully!)
+delete it from the file system manually).
 .SH Results and datasets
 .PP
 The results are written to \f[V]\[ti]/silo-benchmark-outputs\f[R]

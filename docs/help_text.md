@@ -117,8 +117,9 @@ you can check for the reason as follows:
    got severed and you want to tell that you're done later:
    `evobench-run wd unmark $id` (this just makes the directory
    eligible again for deletion by the cronjob that is running
-   `evobench-run wd cleanup`; you can also delete the working
-   directory from the file system manually).
+   `evobench-run wd cleanup`; if you want to delete the working
+   directory immediately, run `evobench-run wd delete $id` now, or
+   (carefully!) delete it from the file system manually).
 
 # Results and datasets
 
