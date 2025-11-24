@@ -5,5 +5,5 @@ IFS=
 if [ $# -ne 0 ]; then
     evobench-run list --color=always "$@" 2>&1 | less -R
 else
-    TERM=xterm-256color watch --color evobench-run list --color=always "$@"
+    watch --color evobench-run list --color=always "$@"
 fi
