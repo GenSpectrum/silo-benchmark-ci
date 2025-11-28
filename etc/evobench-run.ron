@@ -195,7 +195,7 @@ RunConfig(
                 ),
                 // Override: alternative file name for the
                 // `silo_queries.json` file
-                "SILO_QUERIES": AllowedCustomParameter(
+                "QUERIES": AllowedCustomParameter(
                     required: false,
                     type: Filename
                 ),
