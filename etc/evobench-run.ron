@@ -490,6 +490,81 @@ RunConfig(
                     },
                 ),
             ]),
+
+            "bench_christian_adhoc": Val([
+
+                JobTemplate(
+                    priority: 1.25,
+                    initial_boost: "normal",
+                    target_name: "api",
+                    custom_parameters: {
+                        "CONCURRENCY": "120",
+                        "DATASET": "SC2open",
+                        "RANDOMIZED": "1",
+                        "QUERIES": "queries-A6",
+                        "REPEAT": "5000",
+                        "SORTED": "0",
+                    },
+                ),
+
+                JobTemplate(
+                    priority: 1.25,
+                    initial_boost: "normal",
+                    target_name: "api",
+                    custom_parameters: {
+                        "CONCURRENCY": "120",
+                        "DATASET": "SC2open",
+                        "RANDOMIZED": "1",
+                        "QUERIES": "queries-A2",
+                        "REPEAT": "15000",
+                        "SORTED": "0",
+                    },
+                ),
+
+                JobTemplate(
+                    priority: 1.25,
+                    initial_boost: "normal",
+                    target_name: "api",
+                    custom_parameters: {
+                        "CONCURRENCY": "120",
+                        "DATASET": "SC2open",
+                        "RANDOMIZED": "1",
+                        "QUERIES": "queries-A1a",
+                        "REPEAT": "30000",
+                        "SORTED": "0",
+                    },
+                ),
+
+                JobTemplate(
+                    priority: 1.25,
+                    initial_boost: "normal",
+                    target_name: "api",
+                    custom_parameters: {
+                        "CONCURRENCY": "120",
+                        "DATASET": "SC2open",
+                        "RANDOMIZED": "1",
+                        "QUERIES": "queries-A1b",
+                        "REPEAT": "30000",
+                        "SORTED": "0",
+                    },
+                ),
+
+                JobTemplate(
+                    priority: 1.25,
+                    initial_boost: "normal",
+                    target_name: "api",
+                    custom_parameters: {
+                        "CONCURRENCY": "120",
+                        "DATASET": "SC2open",
+                        "RANDOMIZED": "1",
+                        "QUERIES": "queries-A4",
+                        "REPEAT": "8000",
+                        "SORTED": "0",
+                    },
+                ),
+
+            ]),
+
         }
     ),
 
