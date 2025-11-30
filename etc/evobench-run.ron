@@ -506,7 +506,13 @@ RunConfig(
         // want to use 1 for interactive use, 2-3 for CI use. default:
         // 3 (i.e. 2 failures are the maximum to still allow the job
         // to finish)
-        error_budget: Some(2)
+        error_budget: Some(2),
+        // The default priority for jobs (a floating point number, or the
+        // names `normal` (alias for 0.), `high` (alias for 1.), and
+        // `low` (alias for -1.)). Jobs with a higher priority value (in
+        // the positive direction) are scheduled before other
+        // jobs. Default: 0
+        priority: Some(0),
     ),
     
     /// The base of the directory hierarchy where the output files
