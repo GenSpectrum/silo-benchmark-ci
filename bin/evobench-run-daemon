@@ -1,0 +1,7 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+cd
+
+RUST_BACKTRACE=1 nohup evobench-run -v run daemon --restart-on-upgrades
