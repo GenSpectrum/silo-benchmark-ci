@@ -4,4 +4,5 @@ IFS=
 
 cd
 
+source ~/venv/bin/activate
 RUST_BACKTRACE=1 nohup evobench-run -v run daemon --restart-on-upgrades
