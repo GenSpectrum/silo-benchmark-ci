@@ -1,0 +1,18 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+usage() {
+    echo "usage: $0 file.json"
+    exit 1
+}
+
+if [ $# -ne 1 ]; then
+    usage
+fi
+
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+    usage
+fi
+
+json_pp < "$1" | less
