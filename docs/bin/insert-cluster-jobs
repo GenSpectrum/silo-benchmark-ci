@@ -1,0 +1,23 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+usage() {
+    echo "$0 file-with-queries-names"
+    echo "   Reads lines from the given file, each line representing the name of a subfolder"
+    echo "   of the current directory, generated from 'evobench-ndjson vectorize to-folders',"
+    echo "   runs 'evobench-run insert-file' on the job-template.json5 file contained"
+    echo "   in the corresponding folder."
+    exit 1
+}
+
+if [ $# -ne 1 ]; then
+    usage;
+fi
+
+set -x
+
+while read -r queries_name; do
+    evobench-run insert-file "$queries_name"/job-template.json5
+done < "$1"
+
