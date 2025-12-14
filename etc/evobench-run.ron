@@ -111,7 +111,7 @@ RunConfig(
     // ...`) lock (with error when taken), and for additional files
     // specific for that instance. By default,
     // `~/.evobench-run/run_jobs_instance`.
-    run_jobs_instance_path: None,
+    run_jobs_instance_basedir: None,
 
     working_directory_pool: (
         // base_dir: Some("other/path/than/home/.evobench-run/working_directory_pool/"),
