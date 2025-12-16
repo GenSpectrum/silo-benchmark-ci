@@ -9,4 +9,6 @@ export SILOBENCHMARKING_KEPT_BINARIES_BASEDIR=~/www_data/release_downloads
 mkdir -p "$SILOBENCHMARKING_KEPT_BINARIES_BASEDIR"
 
 source ~/venv/bin/activate
-RUST_BACKTRACE=1 nohup evobench-run -v run daemon --restart-on-upgrades
+
+# RUST_BACKTRACE=1 \
+nohup evobench-run -v run daemon --restart-on-upgrades
