@@ -9,16 +9,16 @@ Using a dedicated server has the advantage that
  * the full datasets can be used (perhaps needing lots of RAM)
  * no interference from other workloads, hence better measurements
 
-`evobench-run` has a feature (see `stop_start` attribute in
-[etc/evobench-run.ron](etc/evobench-run.ron)) to temporarily shut down
+`evobench-jobs` has a feature (see `stop_start` attribute in
+[etc/evobench-jobs.ron](etc/evobench-jobs.ron)) to temporarily shut down
 other workloads while running benchmarks, thus the same server can be
 used for other things at other times.
 
-The system consists of a daemon (via `evobench-run -v run daemon`)
+The system consists of a daemon (via `evobench-jobs -v run daemon`)
 that watches a set of job queues and executes them at the configured
 times, and regular execution of a check for new commits on configured
-branches (via `evobench-run poll`, see
-[bin/evobench-run-poll](bin/evobench-run-poll)).
+branches (via `evobench-jobs poll`, see
+[bin/evobench-jobs-poll](bin/evobench-jobs-poll)).
 
 We are currently running the system under the `evobench` user on
 `gs-staging-1`.
@@ -34,7 +34,7 @@ We are currently running the system under the `evobench` user on
     1. `cd evobench/evobench-evaluator/; cargo install --locked --path .`
 
 1. `cd; git clone https://github.com/GenSpectrum/silo-benchmark-ci .silo-benchmark-ci`
-1. `cd; ln -s .silo-benchmark-ci/bin; ln -s .silo-benchmark-ci/etc; ln -s etc/evobench-run.ron .evobench-run.ron`
+1. `cd; ln -s .silo-benchmark-ci/bin; ln -s .silo-benchmark-ci/etc; ln -s etc/evobench-jobs.ron .evobench-jobs.ron`
 1. create `~/silo-benchmark-datasets` directory, put subdirectories with the datasets (todo: where from?)
 1. Get conan:
 
@@ -46,7 +46,7 @@ We are currently running the system under the `evobench` user on
 
         cd
         screen
-        nohup evobench-run -v run daemon
+        nohup evobench-jobs -v run daemon
 
 1. Add poller and cleanup to crontab:
 
@@ -56,8 +56,8 @@ We are currently running the system under the `evobench` user on
 
     Add `PATH=<output from echo $PATH above>` to the top, and the following to the end:
     
-        * * * * * bin/evobench-run-poll
-        0 22 * * * evobench-run wd cleanup stale-for-days 7
+        * * * * * bin/evobench-jobs-poll
+        0 22 * * * evobench-jobs wd cleanup stale-for-days 7
 
 ## More info
 

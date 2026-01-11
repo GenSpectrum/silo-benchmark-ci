@@ -6,20 +6,20 @@
   laptop to your branch `bench_$USER` in the SILO repository on
   GitHub, where USER is your ssh username on this server
   (e.g. "alexander"). See `remote_branch_names_for_poll` in
-  `~/etc/evobench-run.ron` for more branch configurations.
+  `~/etc/evobench-jobs.ron` for more branch configurations.
   
-  Alternatively, `evobench-run insert $commit`.
+  Alternatively, `evobench-jobs insert $commit`.
   
   Note that jobs (same commit *and* parameters), once inserted, will
   not be re-inserted if pushed again, except the `--force` option on
-  the command line (`evobench-run insert --force $commit`) does it.
+  the command line (`evobench-jobs insert --force $commit`) does it.
 
 * Aliases for convenience
 
-    - `list`: watch the job list (runs `watch evobench-run list` with
+    - `list`: watch the job list (runs `watch evobench-jobs list` with
       color options, or if options are passed, pipes to less instead;
       `-v` and `-a` are the most likely used options.)
-    - `list-all`: see all ever inserted jobs (runs `evobench-run list-all` 
+    - `list-all`: see all ever inserted jobs (runs `evobench-jobs list-all` 
       with pager and color option; passes through given options)
 
 * Outputs: see <https://silo-benchmarks.genspectrum.org/> or
@@ -30,17 +30,17 @@
 
 # Programs and logs
 
-Everything goes through the `evobench-run` tool. Run it without
+Everything goes through the `evobench-jobs` tool. Run it without
 arguments (or `--help`, `-h` or `help`) to get a help text.
 
   - You will primarily use the `list`, `list-all`, and `insert`
     subcommands (perhaps via the mentioned list and list-all aliases
     or the cron job).
   
-  - The crontab runs `~/bin/evobench-run-poll`, with a log in
+  - The crontab runs `~/bin/evobench-jobs-poll`, with a log in
     `~/log/evobench-poll.log`
   
-  - The daemon that runs the jobs, running as `evobench-run -v run
+  - The daemon that runs the jobs, running as `evobench-jobs -v run
     daemon`, currently in a screen session, logs to
     `~/log/daemon.log`. (This command must be started after first
     running `source ~/venv/bin/activate`, or SILO won't build!)  `tail
@@ -53,7 +53,7 @@ happen precisely when re-using a working directory for a commit it
 hasn't seen, and as a side effect this allows distinguishing those
 programs from normal `silo` instances.
 
-The `evobench-run` tool is built from the
+The `evobench-jobs` tool is built from the
 `~/evobench/evobench-evaluator` directory. To install a new version,
 after `git pull`, use `cargo install --locked --path .` from the root
 of this directory (the `--locked` option says to use the dependencies
@@ -63,16 +63,16 @@ would install the newest possible versions).
 
 # Queues
 
-Use `evobench-run list` to see the current state of the processing
-queues (it also has `-a` and `-v` options, see `evobench-run list
+Use `evobench-jobs list` to see the current state of the processing
+queues (it also has `-a` and `-v` options, see `evobench-jobs list
 --help`). To keep watching changes, just run the `list` wrapper
 script.
 
 The queues consist of directories containing files, one job per file,
-under `~/.evobench-run/queues`.  If you're careful, you can move jobs
+under `~/.evobench-jobs/queues`.  If you're careful, you can move jobs
 between queues by just moving the files (using the `mv` command or
 similar), except you shouldn't move the file if it is currently being
-executed. Use `evobench-run list -v` (or the alias, `list -v`) to both
+executed. Use `evobench-jobs list -v` (or the alias, `list -v`) to both
 see the file names for each job, and whether it is running (`R` while
 the job is running or `E` while its results are statistically
 evaluated).
@@ -81,9 +81,9 @@ evaluated).
 
 # How to investigate a job failure
 
-evobench-run maintains a pool of working directories (clones of the
+evobench-jobs maintains a pool of working directories (clones of the
 target project repository) under
-`~/.evobench-run/working_directory_pool/` that it uses to avoid the
+`~/.evobench-jobs/working_directory_pool/` that it uses to avoid the
 need to rebuild when a job for the same commit id is run again. 
 
 When there is a failure during execution (be it build or run time) in
@@ -91,11 +91,11 @@ a particular working directory, the directory is marked with status
 'error', which takes it out of active use by the benchmarking runner,
 to allow for investigation of the failure. After a certain number of
 days, such working directories are automatically deleted (see the
-`evobench-run wd cleanup` entry in `crontab -l`), unless when marked
+`evobench-jobs wd cleanup` entry in `crontab -l`), unless when marked
 with 'examination' status, which happens as mentioned below.
 
 Interaction with working directories is best done via the
-`evobench-run wd` subcommand.
+`evobench-jobs wd` subcommand.
 
 If there was a failure (a job ended up in the "erroneous-jobs" queue),
 you can check for the reason as follows:
@@ -103,22 +103,22 @@ you can check for the reason as follows:
 1. Get the working directory id (number) that the job was last
    executed in (shown by `list` or `list -a`, in the "WD" column). You
    can also see all working directories sorted by last activity via
-   `evobench-run wd list -s`.
+   `evobench-jobs wd list -s`.
 
-2. To see the log from the failed job, run `evobench-run wd log $id`.
+2. To see the log from the failed job, run `evobench-jobs wd log $id`.
 
 3. To examine the working directory itself, re-run the job etc., run
-   `evobench-run wd enter $id`. This opens a shell in the working
+   `evobench-jobs wd enter $id`. This opens a shell in the working
    directory. The working directory status is set to "examination",
    which prevents it from being auto-deleted.
 
 4. When done, just exit the shell and answer `y` regarding the
    reversion of the dir status back to "error". If your ssh connection
    got severed and you want to tell that you're done later:
-   `evobench-run wd unmark $id` (this just makes the directory
+   `evobench-jobs wd unmark $id` (this just makes the directory
    eligible again for deletion by the cronjob that is running
-   `evobench-run wd cleanup`; if you want to delete the working
-   directory immediately, run `evobench-run wd delete $id` now, or
+   `evobench-jobs wd cleanup`; if you want to delete the working
+   directory immediately, run `evobench-jobs wd delete $id` now, or
    (carefully!) delete it from the file system manually).
 
 # Results and datasets
@@ -151,9 +151,9 @@ symlinks to avoid copying unchanged files.
 
 If you want to read or need to edit the configuration, you find it in
 `~/etc/`, which is a symlink to `~/.silo-benchmark-ci/etc`. The file
-`evobench-run.ron` in this directory is referenced by symlink from
-`~/.evobench-run.ron`, which is the location read by
-`evobench-run`. Since this is a Git repository, please commit your
+`evobench-jobs.ron` in this directory is referenced by symlink from
+`~/.evobench-jobs.ron`, which is the location read by
+`evobench-jobs`. Since this is a Git repository, please commit your
 changes------they should end up on
 <https://github.com/GenSpectrum/silo-benchmark-ci/> eventually.
 

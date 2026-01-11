@@ -7,13 +7,13 @@
 
 RunConfig(
     queues: (
-        // run_queues_basedir: Some("other/path/than/home/.evobench-run/queues/"),
+        // run_queues_basedir: Some("other/path/than/home/.evobench-jobs/queues/"),
 
         // List of queues each job goes through in order--each entry
         // being a tuple of subdirectory name (under
-        // `~/.evobench-run/queues/` by default) and scheduling
-        // configuration. Jobs are inserted (via `evobench-run
-        // insert`, `evobench-run insert-local`, `evobench-run poll`)
+        // `~/.evobench-jobs/queues/` by default) and scheduling
+        // configuration. Jobs are inserted (via `evobench-jobs
+        // insert`, `evobench-jobs insert-local`, `evobench-jobs poll`)
         // into the first queue configured here, then may be moved to
         // the next, depending on the scheduling configuration.
         pipeline: [
@@ -107,14 +107,14 @@ RunConfig(
         view_jobs_max_len: 8,
     ),
 
-    // The path to the directory that job runners (`evobench-run run
+    // The path to the directory that job runners (`evobench-jobs run
     // ...`) lock (with error when taken), and for additional files
     // specific for that instance. By default,
-    // `~/.evobench-run/run_jobs_instance`.
+    // `~/.evobench-jobs/run_jobs_instance`.
     run_jobs_instance_basedir: None,
 
     working_directory_pool: (
-        // base_dir: Some("other/path/than/home/.evobench-run/working_directory_pool/"),
+        // base_dir: Some("other/path/than/home/.evobench-jobs/working_directory_pool/"),
 
         // Smaller: less disk space use for build dirs, but less
         // chance to re-use a build with the same commit id without
@@ -161,7 +161,7 @@ RunConfig(
                 // This name is matched to the `target_name` field in
                 // `JobTemplate`, and it is used as the first path
                 // segment below `output_base_dir` for storing the
-                // results. It will also be shown by `evobench-run
+                // results. It will also be shown by `evobench-jobs
                 // list`. Note that this field is part of the
                 // benchmarking key (as are the other fields here!),
                 // i.e. changing `target_name` leads to potential
@@ -433,7 +433,7 @@ RunConfig(
         ],
     },
 
-    // Job templates for using the "evobench-run insert" or
+    // Job templates for using the "evobench-jobs insert" or
     // "insert-local" sub-commands. Reference into
     // `job_template_lists` via `Ref("..")`, or provide a list of
     // JobTemplate entries directly via `Val([..])`.

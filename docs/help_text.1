@@ -23,27 +23,27 @@ laptop to your branch \f[V]bench_$USER\f[R] in the SILO repository on
 GitHub, where USER is your ssh username on this server
 (e.g.\ \[lq]alexander\[rq]).
 See \f[V]remote_branch_names_for_poll\f[R] in
-\f[V]\[ti]/etc/evobench-run.ron\f[R] for more branch configurations.
+\f[V]\[ti]/etc/evobench-jobs.ron\f[R] for more branch configurations.
 .RS 2
 .PP
-Alternatively, \f[V]evobench-run insert $commit\f[R].
+Alternatively, \f[V]evobench-jobs insert $commit\f[R].
 .PP
 Note that jobs (same commit \f[I]and\f[R] parameters), once inserted,
 will not be re-inserted if pushed again, except the \f[V]--force\f[R]
 option on the command line
-(\f[V]evobench-run insert --force $commit\f[R]) does it.
+(\f[V]evobench-jobs insert --force $commit\f[R]) does it.
 .RE
 .IP \[bu] 2
 Aliases for convenience
 .RS 2
 .IP \[bu] 2
 \f[V]list\f[R]: watch the job list (runs
-\f[V]watch evobench-run list\f[R] with color options, or if options are
+\f[V]watch evobench-jobs list\f[R] with color options, or if options are
 passed, pipes to less instead; \f[V]-v\f[R] and \f[V]-a\f[R] are the
 most likely used options.)
 .IP \[bu] 2
 \f[V]list-all\f[R]: see all ever inserted jobs (runs
-\f[V]evobench-run list-all\f[R] with pager and color option; passes
+\f[V]evobench-jobs list-all\f[R] with pager and color option; passes
 through given options)
 .RE
 .IP \[bu] 2
@@ -54,7 +54,7 @@ To investigate an error, see \[lq]How to investigate a job failure\[rq]
 below.
 .SH Programs and logs
 .PP
-Everything goes through the \f[V]evobench-run\f[R] tool.
+Everything goes through the \f[V]evobench-jobs\f[R] tool.
 Run it without arguments (or \f[V]--help\f[R], \f[V]-h\f[R] or
 \f[V]help\f[R]) to get a help text.
 .IP \[bu] 2
@@ -62,11 +62,11 @@ You will primarily use the \f[V]list\f[R], \f[V]list-all\f[R], and
 \f[V]insert\f[R] subcommands (perhaps via the mentioned list and
 list-all aliases or the cron job).
 .IP \[bu] 2
-The crontab runs \f[V]\[ti]/bin/evobench-run-poll\f[R], with a log in
+The crontab runs \f[V]\[ti]/bin/evobench-jobs-poll\f[R], with a log in
 \f[V]\[ti]/log/evobench-poll.log\f[R]
 .IP \[bu] 2
 The daemon that runs the jobs, running as
-\f[V]evobench-run -v run     daemon\f[R], currently in a screen session,
+\f[V]evobench-jobs -v run     daemon\f[R], currently in a screen session,
 logs to \f[V]\[ti]/log/daemon.log\f[R].
 (This command must be started after first running
 \f[V]source \[ti]/venv/bin/activate\f[R], or SILO won\[cq]t build!)
@@ -80,7 +80,7 @@ make sure rebuilds happen precisely when re-using a working directory
 for a commit it hasn\[cq]t seen, and as a side effect this allows
 distinguishing those programs from normal \f[V]silo\f[R] instances.
 .PP
-The \f[V]evobench-run\f[R] tool is built from the
+The \f[V]evobench-jobs\f[R] tool is built from the
 \f[V]\[ti]/evobench/evobench-evaluator\f[R] directory.
 To install a new version, after \f[V]git pull\f[R], use
 \f[V]cargo install --locked --path .\f[R] from the root of this
@@ -90,17 +90,17 @@ reviewed or otherwise somewhat checked for supply chain safety; by
 default it would install the newest possible versions).
 .SH Queues
 .PP
-Use \f[V]evobench-run list\f[R] to see the current state of the
+Use \f[V]evobench-jobs list\f[R] to see the current state of the
 processing queues (it also has \f[V]-a\f[R] and \f[V]-v\f[R] options,
-see \f[V]evobench-run list --help\f[R]).
+see \f[V]evobench-jobs list --help\f[R]).
 To keep watching changes, just run the \f[V]list\f[R] wrapper script.
 .PP
 The queues consist of directories containing files, one job per file,
-under \f[V]\[ti]/.evobench-run/queues\f[R].
+under \f[V]\[ti]/.evobench-jobs/queues\f[R].
 If you\[cq]re careful, you can move jobs between queues by just moving
 the files (using the \f[V]mv\f[R] command or similar), except you
 shouldn\[cq]t move the file if it is currently being executed.
-Use \f[V]evobench-run list -v\f[R] (or the alias, \f[V]list -v\f[R]) to
+Use \f[V]evobench-jobs list -v\f[R] (or the alias, \f[V]list -v\f[R]) to
 both see the file names for each job, and whether it is running
 (\f[V]R\f[R] while the job is running or \f[V]E\f[R] while its results
 are statistically evaluated).
@@ -108,9 +108,9 @@ are statistically evaluated).
 (Possible todo: add convenience commands?)
 .SH How to investigate a job failure
 .PP
-evobench-run maintains a pool of working directories (clones of the
+evobench-jobs maintains a pool of working directories (clones of the
 target project repository) under
-\f[V]\[ti]/.evobench-run/working_directory_pool/\f[R] that it uses to
+\f[V]\[ti]/.evobench-jobs/working_directory_pool/\f[R] that it uses to
 avoid the need to rebuild when a job for the same commit id is run
 again.
 .PP
@@ -119,12 +119,12 @@ particular working directory, the directory is marked with status
 `error', which takes it out of active use by the benchmarking runner, to
 allow for investigation of the failure.
 After a certain number of days, such working directories are
-automatically deleted (see the \f[V]evobench-run wd cleanup\f[R] entry
+automatically deleted (see the \f[V]evobench-jobs wd cleanup\f[R] entry
 in \f[V]crontab -l\f[R]), unless when marked with `examination' status,
 which happens as mentioned below.
 .PP
 Interaction with working directories is best done via the
-\f[V]evobench-run wd\f[R] subcommand.
+\f[V]evobench-jobs wd\f[R] subcommand.
 .PP
 If there was a failure (a job ended up in the \[lq]erroneous-jobs\[rq]
 queue), you can check for the reason as follows:
@@ -133,13 +133,13 @@ Get the working directory id (number) that the job was last executed in
 (shown by \f[V]list\f[R] or \f[V]list -a\f[R], in the \[lq]WD\[rq]
 column).
 You can also see all working directories sorted by last activity via
-\f[V]evobench-run wd list -s\f[R].
+\f[V]evobench-jobs wd list -s\f[R].
 .IP "2." 3
 To see the log from the failed job, run
-\f[V]evobench-run wd log $id\f[R].
+\f[V]evobench-jobs wd log $id\f[R].
 .IP "3." 3
 To examine the working directory itself, re-run the job etc., run
-\f[V]evobench-run wd enter $id\f[R].
+\f[V]evobench-jobs wd enter $id\f[R].
 This opens a shell in the working directory.
 The working directory status is set to \[lq]examination\[rq], which
 prevents it from being auto-deleted.
@@ -147,10 +147,10 @@ prevents it from being auto-deleted.
 When done, just exit the shell and answer \f[V]y\f[R] regarding the
 reversion of the dir status back to \[lq]error\[rq].
 If your ssh connection got severed and you want to tell that you\[cq]re
-done later: \f[V]evobench-run wd unmark $id\f[R] (this just makes the
+done later: \f[V]evobench-jobs wd unmark $id\f[R] (this just makes the
 directory eligible again for deletion by the cronjob that is running
-\f[V]evobench-run wd cleanup\f[R]; if you want to delete the working
-directory immediately, run \f[V]evobench-run wd delete $id\f[R] now, or
+\f[V]evobench-jobs wd cleanup\f[R]; if you want to delete the working
+directory immediately, run \f[V]evobench-jobs wd delete $id\f[R] now, or
 (carefully!)
 delete it from the file system manually).
 .SH Results and datasets
@@ -185,9 +185,9 @@ You can use symlinks to avoid copying unchanged files.
 If you want to read or need to edit the configuration, you find it in
 \f[V]\[ti]/etc/\f[R], which is a symlink to
 \f[V]\[ti]/.silo-benchmark-ci/etc\f[R].
-The file \f[V]evobench-run.ron\f[R] in this directory is referenced by
-symlink from \f[V]\[ti]/.evobench-run.ron\f[R], which is the location
-read by \f[V]evobench-run\f[R].
+The file \f[V]evobench-jobs.ron\f[R] in this directory is referenced by
+symlink from \f[V]\[ti]/.evobench-jobs.ron\f[R], which is the location
+read by \f[V]evobench-jobs\f[R].
 Since this is a Git repository, please commit your changes\[em]\[em]they
 should end up on <https://github.com/GenSpectrum/silo-benchmark-ci/>
 eventually.

@@ -2,4 +2,4 @@
 set -meuo pipefail
 IFS=
 
-evobench-run list-all --color=always "$@" | less -R
+evobench-jobs list-all --color=always "$@" | less -R
