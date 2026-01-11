@@ -1,0 +1,26 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+usage() {
+    echo "usage: $0 start|stop|restart|status"
+    exit 1
+}
+
+
+if [ $# -ne 1 ]; then
+    usage
+fi
+command="$1"
+
+
+cd
+
+export SILOBENCHMARKING_KEPT_BINARIES_BASEDIR=~/www_data/release_downloads
+
+mkdir -p "$SILOBENCHMARKING_KEPT_BINARIES_BASEDIR"
+
+source ~/venv/bin/activate
+#RUST_BACKTRACE=1
+evobench-jobs -v run daemon --restart-on-upgrades "$command"
+
