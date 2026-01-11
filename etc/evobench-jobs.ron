@@ -519,6 +519,15 @@ RunConfig(
     // should be placed
     output_base_dir: "~/silo-benchmark-outputs",
 
+    // Directory for log files for the evobench-jobs run
+    // daemon. Default: the "logs" subdirectory of the run jobs
+    // instance directory (called `daemon_state_dir` in the code),
+    // `~/.evobench-jobs/run_jobs_instance/logs/`. (Note: changes to
+    // this setting requires a restart of the daemon, since it affects
+    // the logger process which does not get updates without a
+    // restart.)
+    daemon_log_dir: Some("~/log"),
+
     // Optional directory holding directories whose name is taken
     // from the (optional, depending on the configuration) `DATASET`
     // custom variable (hacky to mis-use a custom variable for
