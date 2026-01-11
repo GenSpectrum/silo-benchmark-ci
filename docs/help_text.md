@@ -40,11 +40,10 @@ arguments (or `--help`, `-h` or `help`) to get a help text.
   - The crontab runs `~/bin/evobench-jobs-poll`, with a log in
     `~/log/evobench-poll.log`
   
-  - The daemon that runs the jobs, running as `evobench-jobs -v run
-    daemon`, currently in a screen session, logs to
-    `~/log/daemon.log`. (This command must be started after first
-    running `source ~/venv/bin/activate`, or SILO won't build!)  `tail
-    -f ~/log/daemon.log` will show you interactively what's going on.
+  - The daemon that runs the jobs, started via the crontab
+    (`evobench-jobs-run-daemon start`), logs to
+    `~/log/daemon.log`. `tail -f ~/log/daemon.log` will show you
+    interactively what's going on.
 
 When you see a program with a name like `silo_02daf40559` running in
 top/ps, then you know that it was started by the benchmarks------the

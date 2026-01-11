@@ -42,11 +42,9 @@ We are currently running the system under the `evobench` user on
         source ~/venv/bin/activate
         pip install conan==2.8.1
 
-1. Start daemon (for now):
+1. Start daemon:
 
-        cd
-        screen
-        nohup evobench-jobs -v run daemon
+        bin/evobench-jobs-run-daemon start
 
 1. Add poller and cleanup to crontab:
 
