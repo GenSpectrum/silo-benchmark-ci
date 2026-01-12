@@ -42,7 +42,7 @@ arguments (or `--help`, `-h` or `help`) to get a help text.
   
   - The daemon that runs the jobs, started via the crontab
     (`evobench-jobs-run-daemon start`), logs to
-    `~/log/daemon.log`. `tail -f ~/log/daemon.log` will show you
+    `~/log/current.log`. `tail -f ~/log/current.log` will show you
     interactively what's going on.
 
 When you see a program with a name like `silo_02daf40559` running in
