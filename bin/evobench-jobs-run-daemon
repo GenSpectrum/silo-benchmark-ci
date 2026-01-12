@@ -22,5 +22,5 @@ mkdir -p "$SILOBENCHMARKING_KEPT_BINARIES_BASEDIR"
 
 source ~/venv/bin/activate
 #RUST_BACKTRACE=1
-evobench-jobs -v run daemon --restart-on-upgrades "$command"
+evobench-jobs run daemon "$command"
 
