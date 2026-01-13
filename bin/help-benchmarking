@@ -4,7 +4,8 @@ IFS=
 
 mypath=$(readlink -f "$0")
 mydir=$(dirname "$mypath")
-docsdir=$(dirname "$mydir")
+repodir=$(dirname "$mydir")
+docsdir="$repodir"/docs
 
 man "$docsdir"/help_text.1
 
