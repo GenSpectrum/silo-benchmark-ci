@@ -54,7 +54,7 @@ hasn't seen, and as a side effect this allows distinguishing those
 programs from normal `silo` instances.
 
 The `evobench-jobs` tool is built from the
-`~/evobench/evobench-evaluator` directory. To install a new version,
+`~/evobench/evobench-tools` directory. To install a new version,
 after `git pull`, use `cargo install --locked --path .` from the root
 of this directory (the `--locked` option says to use the dependencies
 from the `Cargo.lock`, which are known working and partially reviewed
@@ -165,5 +165,5 @@ root, for security).
 
 # SEE ALSO
 
-* [Evobench documentation](https://github.com/GenSpectrum/evobench/blob/master/evobench-evaluator/docs/overview.md)
+* [Evobench documentation](https://github.com/GenSpectrum/evobench/blob/master/evobench-tools/docs/overview.md)
 

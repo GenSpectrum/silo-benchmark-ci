@@ -31,7 +31,7 @@ We are currently running the system under the `evobench` user on
     1. install the current stable Rust toolchain in this account via [rustup](https://rustup.rs/)
     1. log out and in again (or source the shell startup files)
     1. `git clone https://github.com/GenSpectrum/evobench`
-    1. `cd evobench/evobench-evaluator/; cargo install --locked --path .`
+    1. `cd evobench/evobench-tools/; cargo install --locked --path .`
 
 1. `cd; git clone https://github.com/GenSpectrum/silo-benchmark-ci .silo-benchmark-ci`
 1. `cd; ln -s .silo-benchmark-ci/bin; ln -s .silo-benchmark-ci/etc; ln -s etc/evobench-jobs.ron .evobench-jobs.ron`
