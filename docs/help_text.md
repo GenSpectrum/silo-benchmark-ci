@@ -37,14 +37,14 @@ arguments (or `--help`, `-h` or `help`) to get a help text.
     subcommands (perhaps via the mentioned list and list-all aliases
     or the cron job).
   
-  - The crontab runs `~/bin/evobench-jobs-poll`, with a log in
+  - The crontab runs `evobench-jobs-poll`, with a log in
     `~/log/evobench-poll.log`
   
   - The daemon that runs the jobs, started via the crontab
-    (`~/bin/evobench-daemon start`), logs to
+    (`evobench-daemon start`), logs to
     `~/log/current.log`. `tail -f ~/log/current.log` will show you
     interactively what's going on. You can see if the daemon is
-    running with `~/bin/evobench-daemon status`.
+    running with `evobench-daemon status`.
 
 When you see a program with a name like `silo_02daf40559` running in
 top/ps, then you know that it was started by the benchmarks------the
