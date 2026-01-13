@@ -25,17 +25,22 @@ We are currently running the system under the `evobench` user on
 
 ## Installation
 
-1. create a user account (e.g. `evobench`)
-1. install evobench:
+1. Create a user account (e.g. `evobench`)
+    
+1. Install a recent stable Rust toolchain in this account via [rustup](https://rustup.rs/)
 
-    1. install the current stable Rust toolchain in this account via [rustup](https://rustup.rs/)
-    1. log out and in again (or source the shell startup files)
+1. Install evobench:
+
+    1. log out and in again (or source the shell startup files) to get Rust in the PATH
     1. `git clone https://github.com/GenSpectrum/evobench`
     1. `cd evobench/evobench-tools/; cargo install --locked --path .`
 
 1. `cd; git clone https://github.com/GenSpectrum/silo-benchmark-ci .silo-benchmark-ci`
+
 1. `cd; ln -s .silo-benchmark-ci/bin; ln -s .silo-benchmark-ci/etc; ln -s etc/evobench-jobs.ron .evobench-jobs.ron`
+
 1. create `~/silo-benchmark-datasets` directory, put subdirectories with the datasets (todo: where from?)
+
 1. Get conan:
 
         python3 -m venv ~/venv
@@ -46,16 +51,9 @@ We are currently running the system under the `evobench` user on
 
         bin/evobench-daemon start
 
-1. Add poller and cleanup to crontab:
+1. Install crontab:
 
-        mkdir ~/log
-        echo "$PATH"
-        crontab -e
-
-    Add `PATH=<output from echo $PATH above>` to the top, and the following to the end:
-    
-        * * * * * bin/evobench-jobs-poll
-        0 22 * * * evobench-jobs wd cleanup stale-for-days 7
+        crontab ~/.silo-benchmark-ci/crontab
 
 ## More info
 
