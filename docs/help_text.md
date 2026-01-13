@@ -41,9 +41,10 @@ arguments (or `--help`, `-h` or `help`) to get a help text.
     `~/log/evobench-poll.log`
   
   - The daemon that runs the jobs, started via the crontab
-    (`evobench-jobs-run-daemon start`), logs to
+    (`~/bin/evobench-jobs-run-daemon start`), logs to
     `~/log/current.log`. `tail -f ~/log/current.log` will show you
-    interactively what's going on.
+    interactively what's going on. You can see if the daemon is
+    running with `~/bin/evobench-jobs-run-daemon status`.
 
 When you see a program with a name like `silo_02daf40559` running in
 top/ps, then you know that it was started by the benchmarks------the
