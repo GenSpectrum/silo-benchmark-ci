@@ -21,6 +21,12 @@ export SILOBENCHMARKING_KEPT_BINARIES_BASEDIR=~/www_data/release_downloads
 mkdir -p "$SILOBENCHMARKING_KEPT_BINARIES_BASEDIR"
 
 source ~/venv/bin/activate
-#RUST_BACKTRACE=1
+
+# To enable backtraces on errors (but note that they are enabled not
+# just for panics, but also for normal errors like wrong usage, which
+# may be confusing, thus don't do it by default):
+
+# export RUST_BACKTRACE=1
+
 evobench-jobs run daemon "$command"
 
