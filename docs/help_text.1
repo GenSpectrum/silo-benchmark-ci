@@ -52,12 +52,12 @@ The crontab runs \f[CR]\[ti]/bin/evobench\-jobs\-poll\f[R], with a log
 in \f[CR]\[ti]/log/evobench\-poll.log\f[R]
 .IP \[bu] 2
 The daemon that runs the jobs, started via the crontab
-(\f[CR]\[ti]/bin/evobench\-jobs\-run\-daemon start\f[R]), logs to
+(\f[CR]\[ti]/bin/evobench\-daemon start\f[R]), logs to
 \f[CR]\[ti]/log/current.log\f[R].
 \f[CR]tail \-f \[ti]/log/current.log\f[R] will show you interactively
 what\[cq]s going on.
 You can see if the daemon is running with
-\f[CR]\[ti]/bin/evobench\-jobs\-run\-daemon status\f[R].
+\f[CR]\[ti]/bin/evobench\-daemon status\f[R].
 .PP
 When you see a program with a name like \f[CR]silo_02daf40559\f[R]
 running in top/ps, then you know that it was started by the

@@ -44,7 +44,7 @@ We are currently running the system under the `evobench` user on
 
 1. Start daemon:
 
-        bin/evobench-jobs-run-daemon start
+        bin/evobench-daemon start
 
 1. Add poller and cleanup to crontab:
 
