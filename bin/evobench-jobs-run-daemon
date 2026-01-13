@@ -2,16 +2,18 @@
 set -meuo pipefail
 IFS=
 
-usage() {
-    echo "usage: $0 start|stop|restart|status"
+
+if [ $# -eq 0 ]; then
+    evobench-jobs run daemon --help
+    echo
+    evobench-jobs run daemon help || true
+    exit 0
+elif [ $# -eq 1 ]; then
+    command="$1"
+else
+    echo "$0: Please only give exactly 1 argument" >&2
     exit 1
-}
-
-
-if [ $# -ne 1 ]; then
-    usage
 fi
-command="$1"
 
 
 cd
