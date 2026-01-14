@@ -54,8 +54,12 @@ The crontab runs \f[CR]evobench\-jobs\-poll\f[R], with a log in
 The daemon that runs the jobs, started via the crontab
 (\f[CR]evobench\-daemon start\f[R]), logs to
 \f[CR]\[ti]/log/current.log\f[R].
-\f[CR]tail \-f \[ti]/log/current.log\f[R] will show you interactively
-what\[cq]s going on.
+\f[CR]tail \-f     \[ti]/log/current.log\f[R] will show you
+interactively what\[cq]s going on\[en]but you can also run
+\f[CR]evoench\-daemon logf\f[R] for the same, and
+\f[CR]evobench\-daemon log\f[R] to open the log file in less (but there
+is log rotation, so if you want to see older logs, go check the
+directory with shell tools).
 You can see if the daemon is running with
 \f[CR]evobench\-daemon status\f[R].
 .PP
