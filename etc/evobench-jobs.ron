@@ -514,7 +514,17 @@ RunConfig(
         // jobs. Default: 0
         priority: Some(0),
     ),
-    
+
+    eval_settings: EvalSettings(
+        // Pass the --show-thread-number option to evobench-eval
+        // ("Include the internally-allocated thread number in call
+        // path strings in the output"). Only use if the application
+        // has a limited number of threads (i.e. uses fixed thread
+        // pools); if it allocates new threads all the time then this
+        // will blow up the resulting Excel files.
+        show_thread_number: false,
+    ),
+
     // The base of the directory hierarchy where the output files
     // should be placed
     output_base_dir: "~/silo-benchmark-outputs",
