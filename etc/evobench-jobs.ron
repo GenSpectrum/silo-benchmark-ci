@@ -1,9 +1,14 @@
+// Configuration for the `evobench-jobs` tool, including its two
+// daemons, `evobench-jobs run daemon` and `evobench-jobs poll
+// daemon`. Changes to this file trigger a restart of the daemons,
+// until disabled via the `--no-restart-on-config-change` command line
+// options.
+
 // More docs may be available in the evobench source code, start with
-// `struct RunConfigOpts` in
-// `evobench-tools/src/run/config.rs`. (Note that in the source
-// code, many of the types have "Opts" appended to the names used
-// here, and are then converted to the type with the name without this
-// suffix while checking the configuration.)
+// `struct RunConfigOpts` in `evobench-tools/src/run/config.rs`. (Note
+// that in the source code, many of the types have "Opts" appended to
+// the names used here, and are then converted to the type with the
+// name without this suffix while checking the configuration.)
 
 RunConfig(
     queues: (
@@ -106,12 +111,6 @@ RunConfig(
         // `--all` option is given
         view_jobs_max_len: 8,
     ),
-
-    // The path to the directory that job runners (`evobench-jobs run
-    // ...`) lock (with error when taken), and for additional files
-    // specific for that instance. By default,
-    // `~/.evobench-jobs/run_jobs_instance`.
-    run_jobs_instance_basedir: None,
 
     working_directory_pool: (
         // base_dir: Some("other/path/than/home/.evobench-jobs/working_directory_pool/"),
@@ -529,14 +528,22 @@ RunConfig(
     // should be placed
     output_base_dir: "~/silo-benchmark-outputs",
 
-    // Directory for log files for the evobench-jobs run
-    // daemon. Default: the "logs" subdirectory of the run jobs
-    // instance directory (called `daemon_state_dir` in the code),
-    // `~/.evobench-jobs/run_jobs_instance/logs/`. (Note: changes to
-    // this setting requires a restart of the daemon, since it affects
-    // the logger process which does not get updates without a
-    // restart.)
-    daemon_log_dir: Some("~/log"),
+
+    // The paths for the `evobench-jobs run daemon`. The defaults are
+    // `~/.evobench-jobs/run_jobs_instance` for the `state_dir` and
+    // the `logs` subdir below that for `logs_dir`. The paths support
+    // `~/` notation.
+    run_jobs_daemon: DaemonPaths(
+        state_dir: None,
+        log_dir: Some("~/logs/run"),
+    ),
+
+    // The same as above for the `evobench-jobs poll daemon`, just
+    // with the `polling_daemon` subdir as the default.
+    polling_daemon: DaemonPaths(
+        state_dir: None,
+        log_dir: Some("~/logs/poll"),
+    ),
 
     // Optional directory holding directories whose name is taken
     // from the (optional, depending on the configuration) `DATASET`
