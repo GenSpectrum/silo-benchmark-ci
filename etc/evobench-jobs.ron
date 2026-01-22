@@ -149,6 +149,16 @@ RunConfig(
         ))
     ),
 
+    // Bash shell code to run before executing any of the
+    // targets. E.g. to source a Python virtual env or defining env
+    // variables. `set -meuo pipefail` and `IFS=` are
+    // enabled. Execution flow must leave at the end of the string.
+    target_pre_exec_bash_code: Some("
+        export SILOBENCHMARKING_KEPT_BINARIES_BASEDIR=~/www_data/release_downloads
+        mkdir -p \"$SILOBENCHMARKING_KEPT_BINARIES_BASEDIR\"
+        source ~/venv/bin/activate
+    "),
+
     // Targets are identified by `benchmarking_command.target_name`,
     // matched to the `target_name` field in `JobTemplate` (the names
     // have no other significance). Each target specifies what command
@@ -172,6 +182,18 @@ RunConfig(
                 subdir: "benchmarking",
                 command: "make",
                 arguments: ["api"],
+                // Bash shell code to run before executing this
+                // target. E.g. to source a Python virtual env or
+                // defining env variables. `set -meuo pipefail` and
+                // `IFS=` are enabled. Execution flow must leave at
+                // the end of the string. This is executed after code
+                // declared via the global `target_pre_exec_bash_code`
+                // field, if any. Note that this value (together with
+                // the other values in BenchmarkingCommand) is copied
+                // into the job, and `evobench-jobs wd enter` will use
+                // the copy from the time the job was started, not the
+                // current value here!
+                pre_exec_bash_code: None,
             ),
             // Which custom environment variables are allowed by this
             // target, whether required, and of what type (format)
@@ -247,6 +269,7 @@ RunConfig(
                 subdir: "benchmarking",
                 command: "make",
                 arguments: ["preprocessing"],
+                pre_exec_bash_code: None,
             ),
             allowed_custom_parameters: {
                 // subdirectory name under ~/silo-benchmark-datasets
