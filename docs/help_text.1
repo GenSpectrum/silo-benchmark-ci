@@ -48,20 +48,17 @@ You will primarily use the \f[CR]list\f[R], \f[CR]list\-all\f[R], and
 \f[CR]insert\f[R] subcommands (perhaps via the mentioned list and
 list\-all aliases or the cron job).
 .IP \[bu] 2
-The crontab runs \f[CR]evobench\-jobs\-poll\f[R], with a log in
-\f[CR]\[ti]/log/evobench\-poll.log\f[R]
-.IP \[bu] 2
-The daemon that runs the jobs, started via the crontab
-(\f[CR]evobench\-daemon start\f[R]), logs to
-\f[CR]\[ti]/log/current.log\f[R].
-\f[CR]tail \-f     \[ti]/log/current.log\f[R] will show you
-interactively what\[cq]s going on\[en]but you can also run
-\f[CR]evoench\-daemon logf\f[R] for the same, and
-\f[CR]evobench\-daemon log\f[R] to open the log file in less (but there
-is log rotation, so if you want to see older logs, go check the
-directory with shell tools).
+The daemon that runs the jobs, started via the crontab, logs to
+\f[CR]\[ti]/logs/run/\f[R].
+Run \f[CR]evoench\-jobs run daemon logf\f[R] to follow the log
+interactively, or go visit the files in the directory via the shell.
 You can see if the daemon is running with
-\f[CR]evobench\-daemon status\f[R].
+\f[CR]evobench\-jobs     run daemon status\f[R].
+.IP \[bu] 2
+The daemon that checks the Github repository, also started via the
+crontab, logs to \f[CR]\[ti]/logs/poll/\f[R].
+Use \f[CR]evobench\-jobs poll daemon     ..\f[R] the same way as for the
+run daemon above.
 .PP
 When you see a program with a name like \f[CR]silo_02daf40559\f[R]
 running in top/ps, then you know that it was started by the

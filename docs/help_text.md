@@ -37,17 +37,15 @@ arguments (or `--help`, `-h` or `help`) to get a help text.
     subcommands (perhaps via the mentioned list and list-all aliases
     or the cron job).
   
-  - The crontab runs `evobench-jobs-poll`, with a log in
-    `~/log/evobench-poll.log`
-  
-  - The daemon that runs the jobs, started via the crontab
-    (`evobench-daemon start`), logs to `~/log/current.log`. `tail -f
-    ~/log/current.log` will show you interactively what's going
-    on--but you can also run `evoench-daemon logf` for the same, and
-    `evobench-daemon log` to open the log file in less (but there is
-    log rotation, so if you want to see older logs, go check the
-    directory with shell tools). You can see if the daemon is running
-    with `evobench-daemon status`.
+  - The daemon that runs the jobs, started via the crontab, logs to
+    `~/logs/run/`.  Run `evoench-jobs run daemon logf` to follow the
+    log interactively, or go visit the files in the directory via the
+    shell.  You can see if the daemon is running with `evobench-jobs
+    run daemon status`.
+    
+  - The daemon that checks the Github repository, also started via the
+    crontab, logs to `~/logs/poll/`. Use `evobench-jobs poll daemon
+    ..` the same way as for the run daemon above.
 
 When you see a program with a name like `silo_02daf40559` running in
 top/ps, then you know that it was started by the benchmarks------the
