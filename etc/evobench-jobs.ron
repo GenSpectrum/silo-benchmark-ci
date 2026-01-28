@@ -49,6 +49,12 @@ RunConfig(
             // is exited (the time period ends or no jobs are left),
             // it is run with `start`.
             ("night", LocalNaiveTimeWindow(
+                // The priority is a floating point number, or the
+                // names `normal` (alias for 0.), `high` (alias for
+                // 1.), or `low` (alias for -1.)). Values are added to
+                // those from jobs. Jobs with a higher resulting
+                // priority value (in the positive direction) are
+                // scheduled before other jobs. Default: 0
                 priority: Some(0),
                 situation: "night",
                 stop_start: Some([
@@ -529,12 +535,6 @@ RunConfig(
         // 3 (i.e. 2 failures are the maximum to still allow the job
         // to finish)
         error_budget: Some(2),
-        // The default priority for jobs (a floating point number, or the
-        // names `normal` (alias for 0.), `high` (alias for 1.), and
-        // `low` (alias for -1.)). Jobs with a higher priority value (in
-        // the positive direction) are scheduled before other
-        // jobs. Default: 0
-        priority: Some(0),
     ),
 
     eval_settings: EvalSettings(
