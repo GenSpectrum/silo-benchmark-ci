@@ -49,7 +49,7 @@ We are currently running the system under the `evobench` user on
 
 1. Start daemon:
 
-        bin/evobench-daemon start
+        evobench run daemon start
 
 1. Install crontab:
 
