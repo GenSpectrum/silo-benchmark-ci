@@ -35,9 +35,11 @@ We are currently running the system under the `evobench` user on
     1. `git clone https://github.com/GenSpectrum/evobench`
     1. `cd evobench/evobench-tools/; cargo install --locked --path .`
 
-1. `cd; git clone https://github.com/GenSpectrum/silo-benchmark-ci .silo-benchmark-ci`
+1. `cd; git clone https://github.com/GenSpectrum/silo-benchmark-ci`
 
-1. `cd; ln -s .silo-benchmark-ci/bin; ln -s .silo-benchmark-ci/etc; ln -s etc/evobench.ron .evobench.ron`
+1. make server-specific helper scripts available `{ echo; echo 'export PATH=~/silo-benchmark-ci/bin:$PATH'; } >> .bashrc`
+
+1. `cd; ln -s silo-benchmark-ci/evobench.ron .evobench.ron`
 
 1. create `~/silo-benchmark-datasets` directory, put subdirectories with the datasets (todo: where from?)
 
