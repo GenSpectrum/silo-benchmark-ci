@@ -293,14 +293,14 @@ RunConfig(
     ],
 
     // A set of named job template lists, referred to by name from
-    // `job_templates_for_insert` and `remote_branch_names_for_poll`.
-    // Each job template in a list generates a separate benchmark run
-    // for each commit that is inserted. The order defines in which
-    // order the jobs are inserted (which means the job generated from
-    // the first template is scheduled first, at least if priorities
-    // are the same). `priority` is added to whatever priority the
-    // inserter asks for, and `initial_boost` is added to the job for
-    // its first run only.
+    // `remote_branch_names_for_poll`.  Each job template in a list
+    // generates a separate benchmark run for each commit that is
+    // inserted. The order defines in which order the jobs are
+    // inserted (which means the job generated from the first template
+    // is scheduled first, at least if priorities are the
+    // same). `priority` is added to whatever priority the inserter
+    // asks for, and `initial_boost` is added to the job for its first
+    // run only.
     job_template_lists: {
         "main_templates": [
             // For the "west_nile" dataset, we collect preprocessing
@@ -460,12 +460,6 @@ RunConfig(
             ),
         ],
     },
-
-    // Job templates for using the "evobench-jobs insert" or
-    // "insert-local" sub-commands. Reference into
-    // `job_template_lists` via `Ref("..")`, or provide a list of
-    // JobTemplate entries directly via `Val([..])`.
-    job_templates_for_insert: Ref("main_templates"),
 
     remote_repository: (
         // The url to clone from
