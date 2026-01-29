@@ -6,7 +6,7 @@ usage() {
     echo "$0 file-with-queries-names"
     echo "   Reads lines from the given file, each line representing the name of a subfolder"
     echo "   of the current directory, generated from 'evobench-ndjson vectorize to-folders',"
-    echo "   runs 'evobench-jobs insert-file' on the job-template.json5 file contained"
+    echo "   runs 'evobench insert-file' on the job-template.json5 file contained"
     echo "   in the corresponding folder."
     exit 1
 }
@@ -18,6 +18,6 @@ fi
 set -x
 
 while read -r queries_name; do
-    evobench-jobs insert-file "$queries_name"/job-template.json5
+    evobench insert-file "$queries_name"/job-template.json5
 done < "$1"
 

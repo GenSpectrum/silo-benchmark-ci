@@ -1,5 +1,5 @@
-// Configuration for the `evobench-jobs` tool, including its two
-// daemons, `evobench-jobs run daemon` and `evobench-jobs poll
+// Configuration for the `evobench` tool, including its two
+// daemons, `evobench run daemon` and `evobench poll
 // daemon`. Changes to this file trigger a restart of the daemons,
 // until disabled via the `--no-restart-on-config-change` command line
 // options.
@@ -12,13 +12,13 @@
 
 RunConfig(
     queues: (
-        // run_queues_basedir: Some("other/path/than/home/.evobench-jobs/queues/"),
+        // run_queues_basedir: Some("other/path/than/home/.evobench/queues/"),
 
         // List of queues each job goes through in order--each entry
         // being a tuple of subdirectory name (under
-        // `~/.evobench-jobs/queues/` by default) and scheduling
-        // configuration. Jobs are inserted (via `evobench-jobs
-        // insert`, `evobench-jobs insert-local`, `evobench-jobs poll`)
+        // `~/.evobench/queues/` by default) and scheduling
+        // configuration. Jobs are inserted (via `evobench
+        // insert`, `evobench insert-local`, `evobench poll`)
         // into the first queue configured here, then may be moved to
         // the next, depending on the scheduling configuration.
         pipeline: [
@@ -119,7 +119,7 @@ RunConfig(
     ),
 
     working_directory_pool: (
-        // base_dir: Some("other/path/than/home/.evobench-jobs/working_directory_pool/"),
+        // base_dir: Some("other/path/than/home/.evobench/working_directory_pool/"),
 
         // Smaller: less disk space use for build dirs, but less
         // chance to re-use a build with the same commit id without
@@ -176,7 +176,7 @@ RunConfig(
                 // This name is matched to the `target_name` field in
                 // `JobTemplate`, and it is used as the first path
                 // segment below `output_base_dir` for storing the
-                // results. It will also be shown by `evobench-jobs
+                // results. It will also be shown by `evobench
                 // list`. Note that this field is part of the
                 // benchmarking key (as are the other fields here!),
                 // i.e. changing `target_name` leads to potential
@@ -196,7 +196,7 @@ RunConfig(
                 // declared via the global `target_pre_exec_bash_code`
                 // field, if any. Note that this value (together with
                 // the other values in BenchmarkingCommand) is copied
-                // into the job, and `evobench-jobs wd enter` will use
+                // into the job, and `evobench wd enter` will use
                 // the copy from the time the job was started, not the
                 // current value here!
                 pre_exec_bash_code: None,
@@ -546,8 +546,8 @@ RunConfig(
     output_base_dir: "~/silo-benchmark-outputs",
 
 
-    // The paths for the `evobench-jobs run daemon`. The defaults are
-    // `~/.evobench-jobs/run_jobs_instance` for the `state_dir` and
+    // The paths for the `evobench run daemon`. The defaults are
+    // `~/.evobench/run_jobs_instance` for the `state_dir` and
     // the `logs` subdir below that for `logs_dir`. The paths support
     // `~/` notation.
     run_jobs_daemon: DaemonPaths(
@@ -555,7 +555,7 @@ RunConfig(
         log_dir: Some("~/logs/run"),
     ),
 
-    // The same as above for the `evobench-jobs poll daemon`, just
+    // The same as above for the `evobench poll daemon`, just
     // with the `polling_daemon` subdir as the default.
     polling_daemon: DaemonPaths(
         state_dir: None,

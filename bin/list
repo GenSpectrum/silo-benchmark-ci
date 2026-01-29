@@ -3,7 +3,7 @@ set -meuo pipefail
 IFS=
 
 if [ $# -ne 0 ]; then
-    evobench-jobs list --color=always "$@" 2>&1 | less -R
+    evobench list --color=always "$@" 2>&1 | less -R
 else
-    watch --color evobench-jobs list --color=always "$@"
+    watch --color evobench list --color=always "$@"
 fi

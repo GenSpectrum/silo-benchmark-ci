@@ -25,6 +25,6 @@ PATH=/home/evobench/bin:/home/evobench/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/
 
 # m h  dom mon dow   command
 
-@reboot evobench-jobs run daemon start
-@reboot evobench-jobs poll daemon start
-0 22 * * * evobench-jobs wd cleanup stale-for-days 7
+@reboot evobench run daemon start
+@reboot evobench poll daemon start
+0 22 * * * evobench wd cleanup stale-for-days 7
