@@ -37,7 +37,7 @@ We are currently running the system under the `evobench` user on
 
 1. `cd; git clone https://github.com/GenSpectrum/silo-benchmark-ci`
 
-1. make server-specific helper scripts available `{ echo; echo "export PATH=~/silo-benchmark-ci/bin:$PATH"; } >> .bashrc`
+1. make server-specific helper scripts available `{ echo; echo 'export PATH=~/silo-benchmark-ci/bin:$PATH'; } >> .bashrc`
 
 1. `cd; ln -s silo-benchmark-ci/evobench.ron .evobench.ron`
 
