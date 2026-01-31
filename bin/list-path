@@ -5,4 +5,4 @@ IFS=
 path=$(readlink -f "$0");
 dir=$(dirname "$path");
 
-exec "$dir"/_list separated "$@"
+exec "$dir"/_list path "$@"

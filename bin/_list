@@ -1,0 +1,9 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+if [ $# -ge 1 ]; then
+    watch --color evobench list --color=always "$@"
+else
+    evobench list --color=always "$@" 2>&1 | less -R
+fi

@@ -543,8 +543,16 @@ RunConfig(
 
     // The base of the directory hierarchy where the output files
     // should be placed
-    output_base_dir: "~/silo-benchmark-outputs",
-
+    output_dir: OutputDir(
+        // The base of the directory hierarchy where the output files
+        // should be placed. Supports `~/` for specifying the home
+        // directory.
+        path: "~/silo-benchmark-outputs",
+        
+        // URL where the same path is served (optional). Used for
+        // `evobench list path url`.
+        url: Some("https://silo-benchmarks.genspectrum.org/"),
+    ),
 
     // The paths for the `evobench run daemon`. The defaults are
     // `~/.evobench/run_jobs_instance` for the `state_dir` and
