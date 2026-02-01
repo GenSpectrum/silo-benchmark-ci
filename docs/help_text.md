@@ -8,17 +8,23 @@
   (e.g. "alexander"). See `remote_branch_names_for_poll` in
   `~/etc/evobench.ron` for more branch configurations.
   
-  Alternatively, `evobench insert $commit`.
+  Alternatively, you can do it on the command line, read the help on
+  `evobench insert`.
   
   Note that jobs (same commit *and* parameters), once inserted, will
-  not be re-inserted if pushed again, except the `--force` option on
-  the command line (`evobench insert --force $commit`) does it.
+  not be re-inserted if pushed again, except when using the `--force`
+  option on the command line (again, read the help on `evobench
+  insert`).
 
-* Aliases for convenience
+* Run `evobench status` for an overview of status and paths.
+
+* Wrappers for convenience
 
     - `list`: watch the job list (runs `watch evobench list` with
       color options, or if options are passed, pipes to less instead;
       `-v` and `-a` are the most likely used options.)
+    - `list-path`: same as `list` but shows the parameters as paths
+      (give it the `full` or `url` arguments for variants thereof)
     - `list-all`: see all ever inserted jobs (runs `evobench list-all` 
       with pager and color option; passes through given options)
 
@@ -30,18 +36,16 @@
 
 # Programs and logs
 
-Everything goes through the `evobench` tool. Run it without
-arguments (or `--help`, `-h` or `help`) to get a help text.
+Everything goes through the `evobench` tool. Run it without arguments
+(or `--help`, `-h` or `help`) to get a help text. It has a hierarchy
+of sub-commands; ask for the help on each level for details on that
+sub-command.
 
-  - You will primarily use the `list`, `list-all`, and `insert`
-    subcommands (perhaps via the mentioned list and list-all aliases
-    or the cron job).
-  
   - The daemon that runs the jobs, started via the crontab, logs to
     `~/logs/run/`.  Run `evoench-jobs run daemon logf` to follow the
     log interactively, or go visit the files in the directory via the
     shell.  You can see if the daemon is running with `evobench
-    run daemon status`.
+    run daemon status` or in `evobench status`.
     
   - The daemon that checks the Github repository, also started via the
     crontab, logs to `~/logs/poll/`. Use `evobench poll daemon
@@ -55,7 +59,7 @@ hasn't seen, and as a side effect this allows distinguishing those
 programs from normal `silo` instances.
 
 The `evobench` tool is built from the
-`~/evobench/evobench-tools` directory. To install a new version,
+`~/src/evobench/evobench-tools` directory. To install a new version,
 after `git pull`, use `cargo install --locked --path .` from the root
 of this directory (the `--locked` option says to use the dependencies
 from the `Cargo.lock`, which are known working and partially reviewed
@@ -64,21 +68,21 @@ would install the newest possible versions).
 
 # Queues
 
-Use `evobench list` to see the current state of the processing
-queues (it also has `-a` and `-v` options, see `evobench list
---help`). To keep watching changes, just run the `list` wrapper
-script.
+Use `evobench list` to see the current state of the processing queues
+(it also has `-a` and `-v` options, see `evobench list --help`). To
+keep watching changes, just run the `list` or `list-path` wrapper
+scripts as mentioned above.
 
 The queues consist of directories containing files, one job per file,
 under `~/.evobench/queues`.  If you're careful, you can move jobs
 between queues by just moving the files (using the `mv` command or
-similar), except you shouldn't move the file if it is currently being
+similar), except you shouldn't move a file if it is currently being
 executed. Use `evobench list -v` (or the alias, `list -v`) to both
 see the file names for each job, and whether it is running (`R` while
 the job is running or `E` while its results are statistically
 evaluated).
 
-(Possible todo: add convenience commands?)
+(Possible todo: add queue handling commands?)
 
 # How to investigate a job failure
 
@@ -104,7 +108,7 @@ you can check for the reason as follows:
 1. Get the working directory id (number) that the job was last
    executed in (shown by `list` or `list -a`, in the "WD" column). You
    can also see all working directories sorted by last activity via
-   `evobench wd list -s`.
+   `evobench wd list`.
 
 2. To see the log from the failed job, run `evobench wd log $id`.
 
@@ -119,8 +123,8 @@ you can check for the reason as follows:
    `evobench wd unmark $id` (this just makes the directory
    eligible again for deletion by the cronjob that is running
    `evobench wd cleanup`; if you want to delete the working
-   directory immediately, run `evobench wd delete $id` now, or
-   (carefully!) delete it from the file system manually).
+   directory immediately, run `evobench wd delete $id` now, (or
+   carefully delete it from the file system manually)).
 
 # Results and datasets
 
@@ -151,10 +155,9 @@ symlinks to avoid copying unchanged files.
 # Configuration
 
 If you want to read or need to edit the configuration, you find it in
-`~/etc/`, which is a symlink to `~/.silo-benchmark-ci/etc`. The file
-`evobench.ron` in this directory is referenced by symlink from
-`~/.evobench.ron`, which is the location read by
-`evobench`. Since this is a Git repository, please commit your
+`~/silo-benchmark-ci/etc`. The file `evobench.ron` in this directory
+is referenced by symlink from `~/.evobench.ron`, which is the location
+read by `evobench`. Since this is a Git repository, please commit your
 changes------they should end up on
 <https://github.com/GenSpectrum/silo-benchmark-ci/> eventually.
 
