@@ -21,7 +21,7 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 
-PATH=/home/evobench/bin:/home/evobench/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+PATH=/home/evobench/local-bin:/home/evobench/.cargo/bin:/home/evobench/bin:/home/evobench/silo-benchmark-ci/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 
 # m h  dom mon dow   command
 
