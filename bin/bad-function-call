@@ -1,0 +1,22 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+default_n=20
+
+if [ $# -eq 1 ]; then
+    n=$1
+elif [ $# -eq 0 ]; then
+    n=$default_n
+else
+    echo "usage: $0 [ n ]"
+    echo "  Find evobench std log files from failed runs that contain the"
+    echo "  string 'bad_function_call'. n is the number of files,  from "
+    echo "  the newest backwards, to look at; default is $default_n."
+fi
+
+ls -rt ~/.evobench/working_directory_pool/*.output* \
+    | tail -"$n" \
+    |» grep -l bad_function_call \
+    |» grep 'commit_id:'
+
